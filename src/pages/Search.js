@@ -6,7 +6,6 @@ export const Search = () => {
       <Fragment>
         <Header/>
         <div>Search</div>
-        
       </Fragment>
     )
 }
