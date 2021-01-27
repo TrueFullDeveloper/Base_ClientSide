@@ -1,8 +1,12 @@
-import React from 'react'
+import React, {Fragment} from 'react'
+import { Header } from '../components/header/Header'
 
 
 export const Profile = () => {
-    return (
+  return (
+    <Fragment>
+      <Header/>
       <div>Profile</div>
-    )
+    </Fragment>
+  )
 }

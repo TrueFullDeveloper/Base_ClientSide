@@ -1,8 +1,12 @@
-import React from 'react'
-
+import React, {Fragment} from 'react'
+import { Header } from '../components/header/Header'
 
 export const Search = () => {
     return (
-      <div>Search</div>
+      <Fragment>
+        <Header/>
+        <div>Search</div>
+        
+      </Fragment>
     )
 }

@@ -10,7 +10,6 @@ import {PassRecovery} from './pages/PassRecovery'
 function App() {
   return (
     <BrowserRouter>
-      <div>
         <Switch>
           <Route path={'/'} exact component={Home}/>
           <Route path={'/login'} component={Login}/>
@@ -20,7 +19,6 @@ function App() {
           <Route path={'/profile'} component={Profile}/>
           <Route path={'/passwordrecovery'} component={PassRecovery}/>
         </Switch>
-      </div>
     </BrowserRouter>
       
   )
