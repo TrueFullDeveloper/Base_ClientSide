@@ -1,13 +1,17 @@
-import {SHOW_LOADER, FETCH_HISTORY, REMOVE_HISTORYITEM} from '../types'
+import { SHOW_LOADER, FETCH_HISTORY, REMOVE_HISTORYITEM } from '../types'
 
 const handlers = {
-  [SHOW_LOADER]: state => ({...state, loading: true}),
-  [FETCH_HISTORY]: (state, {payload}) => ({...state, notes: payload, loading: false}),
-  [REMOVE_HISTORYITEM]: (state, {payload}) => ({
+  [SHOW_LOADER]: (state) => ({ ...state, loading: true }),
+  [FETCH_HISTORY]: (state, { payload }) => ({
     ...state,
-    notes: state.notes.filter(note => note.id !== payload)
+    history: payload,
+    loading: false,
   }),
-  DEFAULT: state => state
+  [REMOVE_HISTORYITEM]: (state, { payload }) => ({
+    ...state,
+    history: state.history.filter((note) => note.id !== payload),
+  }),
+  DEFAULT: (state) => state,
 }
 
 export const postgresReducer = (state, action) => {
