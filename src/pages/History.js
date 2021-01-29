@@ -6,8 +6,9 @@ export const History = () => {
     return (
       <Fragment>
         <Header/>
-        <HistorySearchForm/>
         <div>History</div>
+        <HistorySearchForm/>
+        
       </Fragment>
     )
 }
