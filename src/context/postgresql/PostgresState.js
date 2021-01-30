@@ -2,7 +2,7 @@ import React, { useReducer } from 'react'
 import axios from 'axios'
 import { PostgresContext } from './PostgresContext'
 import { postgresReducer } from './postgresReducer'
-import { SHOW_LOADER, FETCH_HISTORY, REMOVE_HISTORYITEM } from '../types'
+import { SHOW_LOADER, SHOW_HISTORY, REMOVE_HISTORYITEM } from '../types'
 
 export const PostgresState = ({ children }) => {
   const initialState = {
@@ -13,6 +13,8 @@ export const PostgresState = ({ children }) => {
 
   const showLoader = () => dispatch({ type: SHOW_LOADER })
 
+  const searchHistory = (payload) => dispatch({ type: SHOW_HISTORY, payload })
+
   const fetchHistory = async () => {
     showLoader()
     const res = await axios.get('https://jsonplaceholder.typicode.com/todos/?_start=0&_limit=5')
@@ -20,7 +22,7 @@ export const PostgresState = ({ children }) => {
     const payload = Object.keys(res.data).map((key) => {
       return { ...res.data[key] }
     })
-    dispatch({ type: FETCH_HISTORY, payload })
+    dispatch({ type: SHOW_HISTORY, payload })
   }
 
   const removeHistoryItem = async (id) => {
@@ -38,6 +40,7 @@ export const PostgresState = ({ children }) => {
         showLoader,
         removeHistoryItem,
         fetchHistory,
+        searchHistory,
         loading: state.loading,
         history: state.history,
       }}

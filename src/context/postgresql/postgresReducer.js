@@ -1,8 +1,8 @@
-import { SHOW_LOADER, FETCH_HISTORY, REMOVE_HISTORYITEM } from '../types'
+import { SHOW_LOADER, SHOW_HISTORY, REMOVE_HISTORYITEM } from '../types'
 
 const handlers = {
   [SHOW_LOADER]: (state) => ({ ...state, loading: true }),
-  [FETCH_HISTORY]: (state, { payload }) => ({
+  [SHOW_HISTORY]: (state, { payload }) => ({
     ...state,
     history: payload,
     loading: false,
@@ -11,6 +11,10 @@ const handlers = {
     ...state,
     history: state.history.filter((note) => note.id !== payload),
   }),
+  // [HISTORY_SEARCH]: (state, { payload }) => ({
+  //   ...state,
+  //   history: state.history.filter((note) => note.id !== payload),
+  // }),
   DEFAULT: (state) => state,
 }
 
