@@ -1,17 +1,15 @@
-import React, { useContext, useState } from 'react'
-import { PostgresContext } from '../../context/postgresql/PostgresContext'
+import React, { useState } from 'react'
 
-export const HistorySearchForm = () => {
-  const { searchHistory, history } = useContext(PostgresContext)
+export const HistorySearchForm = ({ filterHistory }) => {
   const [value, setValue] = useState('')
 
-  const submitHandler = (event) => {
+  const clickHandler = (event) => {
     event.preventDefault()
-    searchHistory(history.filter((historyItem) => historyItem.title.startsWith(value)))
+    filterHistory(value)
   }
 
   return (
-    <form onSubmit={submitHandler}>
+    <form>
       <div>
         <input
           type="text"
@@ -19,7 +17,9 @@ export const HistorySearchForm = () => {
           value={value}
           onChange={(e) => setValue(e.target.value)}
         />
-        <button type="submit">Поиск</button>
+        <button onClick={clickHandler} type="submit">
+          Поиск
+        </button>
       </div>
     </form>
   )

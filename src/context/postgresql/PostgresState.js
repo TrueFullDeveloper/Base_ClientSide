@@ -2,7 +2,7 @@ import React, { useReducer } from 'react'
 import axios from 'axios'
 import { PostgresContext } from './PostgresContext'
 import { postgresReducer } from './postgresReducer'
-import { SHOW_LOADER, SHOW_HISTORY, REMOVE_HISTORYITEM, SEARCH_QUERY } from '../types'
+import { SHOW_LOADER, FETCH_HISTORY, REMOVE_HISTORYITEM, SEARCH_QUERY } from '../types'
 
 export const PostgresState = ({ children }) => {
   const initialState = {
@@ -14,8 +14,6 @@ export const PostgresState = ({ children }) => {
 
   const showLoader = () => dispatch({ type: SHOW_LOADER })
 
-  const searchHistory = (payload) => dispatch({ type: SHOW_HISTORY, payload })
-
   const fetchHistory = async () => {
     showLoader()
     const res = await axios.get('https://jsonplaceholder.typicode.com/todos/?_start=0&_limit=5')
@@ -23,15 +21,18 @@ export const PostgresState = ({ children }) => {
     const payload = Object.keys(res.data).map((key) => {
       return { ...res.data[key] }
     })
-    dispatch({ type: SHOW_HISTORY, payload })
+    dispatch({ type: FETCH_HISTORY, payload })
   }
-  const fetchResponse = async () => {
+  const fetchResponse = async (query = null) => {
     showLoader()
+    // Пока что query некуда всавлять т.к. запросы идут
+    // фековок API
     const res = await axios.get('https://jsonplaceholder.typicode.com/todos/?_start=0&_limit=5')
 
     const payload = Object.keys(res.data).map((key) => {
-      return { ...res.data[key] }
+      return { ...res.data[key], query: query }
     })
+
     dispatch({ type: SEARCH_QUERY, payload })
   }
 
@@ -50,7 +51,6 @@ export const PostgresState = ({ children }) => {
         showLoader,
         removeHistoryItem,
         fetchHistory,
-        searchHistory,
         fetchResponse,
         loading: state.loading,
         history: state.history,
