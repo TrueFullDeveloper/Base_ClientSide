@@ -1,5 +1,4 @@
 import React, { Fragment, useContext } from 'react'
-import { Header } from '../components/header/Header'
 import { SearchForm } from '../components/search/SearchForm'
 import { VkList } from '../components/search/VkList'
 import { TelegramList } from '../components/search/TelegramList'
@@ -11,7 +10,6 @@ export const Search = () => {
   const { response } = useContext(PostgresContext)
   return (
     <Fragment>
-      <Header />
       <div>Search</div>
       <SearchForm />
       <VkList vkItems={response} />

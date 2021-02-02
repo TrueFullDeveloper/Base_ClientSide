@@ -1,5 +1,4 @@
 import React, { Fragment, useContext, useEffect, useState } from 'react'
-import { Header } from '../components/header/Header'
 import { HistorySearchForm } from '../components/history/HistorySearchForm'
 import { PostgresContext } from '../context/postgresql/PostgresContext'
 import { HistoryItem } from '../components/history/HistoryItem'
@@ -26,7 +25,6 @@ export const History = () => {
 
   return (
     <Fragment>
-      <Header />
       <div>History</div>
       <HistorySearchForm filterHistory={filterHistory} />
       {loading ? ( // Клятые скобки, которые добавляет Prittier,
