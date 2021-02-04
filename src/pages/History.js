@@ -1,7 +1,7 @@
 import React, { Fragment, useContext, useEffect, useState } from 'react'
-import { HistorySearchForm } from '../components/history/HistorySearchForm'
+import { HistorySearch } from '../components/history/HistorySearch'
 import { PostgresContext } from '../context/postgresql/PostgresContext'
-import { HistoryItem } from '../components/history/HistoryItem'
+import { HistoryItem } from '../components/history/HistoryList'
 import { Loader } from '../components/loader/Loader'
 
 export const History = () => {
@@ -26,7 +26,7 @@ export const History = () => {
   return (
     <Fragment>
       <div>History</div>
-      <HistorySearchForm filterHistory={filterHistory} />
+      <HistorySearch filterHistory={filterHistory} />
       {loading ? ( // Клятые скобки, которые добавляет Prittier,
         <Loader /> // потом сохраню файл без Prittier
       ) : (

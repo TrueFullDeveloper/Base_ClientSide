@@ -1,19 +1,23 @@
-import React from 'react'
-import { BrowserRouter, Route, Switch } from 'react-router-dom'
+import React, { useState } from 'react'
+import { BrowserRouter } from 'react-router-dom'
 import { PostgresState } from './context/postgresql/PostgresState'
 import { useRoutes } from './routes'
 import { Header } from './components/header/Header'
+import { AuthState } from './context/auth/AuthState'
 
 function App() {
-  const isAuthenticated = true
+  const [isAuthenticated, setAuthenticated] = useState(false)
+
   const routes = useRoutes(isAuthenticated)
   return (
-    <PostgresState>
-      <BrowserRouter>
-        {isAuthenticated && <Header />}
-        {routes}
-      </BrowserRouter>
-    </PostgresState>
+    <AuthState setAuthenticated={setAuthenticated}>
+      <PostgresState>
+        <BrowserRouter>
+          {isAuthenticated && <Header />}
+          {routes}
+        </BrowserRouter>
+      </PostgresState>
+    </AuthState>
   )
 }
 
