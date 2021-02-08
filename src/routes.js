@@ -6,6 +6,7 @@ import { History } from './pages/History'
 import { Search } from './pages/Search'
 import { Profile } from './pages/Profile'
 import { PassRecovery } from './pages/PassRecovery'
+import { TopQueries } from './pages/TopQueries'
 
 export const useRoutes = isAuthenticated => {
   if (isAuthenticated) {
@@ -16,6 +17,7 @@ export const useRoutes = isAuthenticated => {
         <Route path={'/search'} exact component={Search} />
         <Route path={'/profile'} exact component={Profile} />
         <Route path={'/passwordrecovery'} exact component={PassRecovery} />
+        <Route path={'/topqueries'} exact component={TopQueries} />
         <Redirect to="/" />
       </Switch>
     )

@@ -17,7 +17,7 @@ export const Signup = () => {
   }
 
   const onClick = () => {
-    if (form.password === form.passwordRep) {
+    if (form.password > 6 && form.password === form.passwordRep) {
       fetchSignup(form.name, form.email, form.password)
     } else {
       setForm({ ...form, password: '', passwordRep: '' })

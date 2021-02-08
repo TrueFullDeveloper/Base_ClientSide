@@ -1,4 +1,10 @@
-import { SHOW_LOADER, FETCH_HISTORY, REMOVE_HISTORYITEM, SEARCH_QUERY } from '../types'
+import {
+  SHOW_LOADER,
+  FETCH_HISTORY,
+  REMOVE_HISTORYITEM,
+  SEARCH_QUERY,
+  FETCH_PROFILE,
+} from '../types'
 
 const handlers = {
   [SHOW_LOADER]: state => ({ ...state, loading: true }),
@@ -14,6 +20,11 @@ const handlers = {
   [SEARCH_QUERY]: (state, { payload }) => ({
     ...state,
     response: payload,
+    loading: false,
+  }),
+  [FETCH_PROFILE]: (state, { payload }) => ({
+    ...state,
+    profileData: payload,
     loading: false,
   }),
 
