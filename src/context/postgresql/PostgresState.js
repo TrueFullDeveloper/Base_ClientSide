@@ -14,7 +14,7 @@ export const PostgresState = ({ children }) => {
   const initialState = {
     history: [],
     response: [],
-    profileData: null,
+    profileData: { userName: '', email: '', telegram: '' },
     loading: false,
   }
   const [state, dispatch] = useReducer(postgresReducer, initialState)
@@ -63,7 +63,7 @@ export const PostgresState = ({ children }) => {
         email: 'wannakillms@gmail.com',
         telegram: '@DieYouWatchCo',
       }
-      const payload = userData
+      const payload = { ...userData }
 
       dispatch({ type: FETCH_PROFILE, payload })
     } catch (e) {
@@ -76,8 +76,7 @@ export const PostgresState = ({ children }) => {
       showLoader()
 
       await axios.post('https://jsonplaceholder.typicode.com/posts', JSON.stringify(userData))
-
-      const payload = userData
+      const payload = { ...userData }
 
       dispatch({ type: FETCH_PROFILE, payload })
     } catch (e) {
@@ -97,6 +96,7 @@ export const PostgresState = ({ children }) => {
         loading: state.loading,
         history: state.history,
         response: state.response,
+        profileData: state.profileData,
       }}
     >
       {children}

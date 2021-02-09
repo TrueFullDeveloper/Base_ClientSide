@@ -1,9 +1,9 @@
 import React from 'react'
 
-export const HistoryItem = ({ history, onRemove }) => {
+export const HistoryList = ({ history, onRemove }) => {
   return (
     <ul>
-      {history.map((historyItem) => (
+      {history.map(historyItem => (
         <li key={historyItem.id}>
           <div>
             <strong>{historyItem.id}</strong>

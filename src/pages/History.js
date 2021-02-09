@@ -1,7 +1,7 @@
 import React, { Fragment, useContext, useEffect, useState } from 'react'
 import { HistorySearch } from '../components/history/HistorySearch'
 import { PostgresContext } from '../context/postgresql/PostgresContext'
-import { HistoryItem } from '../components/history/HistoryList'
+import { HistoryList } from '../components/history/HistoryList'
 import { Loader } from '../components/loader/Loader'
 
 export const History = () => {
@@ -30,7 +30,7 @@ export const History = () => {
       {loading ? ( // Клятые скобки, которые добавляет Prittier,
         <Loader /> // потом сохраню файл без Prittier
       ) : (
-        <HistoryItem history={historyState || history} onRemove={onRemove} />
+        <HistoryList history={historyState || history} onRemove={onRemove} />
       )}
     </Fragment>
   )

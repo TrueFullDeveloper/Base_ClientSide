@@ -1,31 +1,25 @@
-import React, { Fragment, useContext } from 'react'
+import React, { Fragment, useContext, useEffect } from 'react'
 import { AuthContext } from '../context/auth/AuthContext'
+import { ProfileForm } from '../components/profile/ProfileForm'
+import { Loader } from '../components/loader/Loader'
+import { PostgresContext } from '../context/postgresql/PostgresContext'
 
 export const Profile = () => {
-  const { logout } = useContext(AuthContext)
+  const { logout, userId } = useContext(AuthContext)
+  const { loading, fetchProfile, profileData, profileChange } = useContext(PostgresContext)
+
+  useEffect(() => {
+    fetchProfile(userId)
+    // eslint-disable-next-line
+  }, [])
 
   return (
     <Fragment>
-      <div>
-        <form>
-          <div>
-            <span>Имя</span>
-            <input placeholder="Cezar" type="text" />
-          </div>
-          <div>
-            <span>Почта</span>
-            <input placeholder="wannakillms@gmail.com" type="email" />
-          </div>
-          <div>
-            <span>Телеграмм</span>
-            <input placeholder="@DieYouWatchCo" type="text" />
-          </div>
-          <div>
-            <input value="Сменить пароль" type="submit" />
-            <button onClick={logout}>Выйти</button>
-          </div>
-        </form>
-      </div>
+      {loading ? ( // Клятые скобки, которые добавляет Prittier,
+        <Loader /> // потом сохраню файл без Prittier
+      ) : (
+        <ProfileForm logout={logout} profileData={profileData} profileChange={profileChange} />
+      )}
     </Fragment>
   )
 }
