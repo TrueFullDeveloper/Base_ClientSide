@@ -12,7 +12,7 @@ export const Signup = () => {
     passwordRep: '',
   })
 
-  const changeHandler = event => {
+  const onChange = event => {
     setForm({ ...form, [event.target.name]: event.target.value })
   }
 
@@ -34,7 +34,7 @@ export const Signup = () => {
         id="name"
         name="name"
         value={form.name}
-        onChange={changeHandler}
+        onChange={onChange}
       />
       <input
         placeholder="Почта"
@@ -42,7 +42,7 @@ export const Signup = () => {
         id="email"
         name="email"
         value={form.email}
-        onChange={changeHandler}
+        onChange={onChange}
       />
       <input
         placeholder="Пароль"
@@ -50,7 +50,7 @@ export const Signup = () => {
         id="password"
         name="password"
         value={form.password}
-        onChange={changeHandler}
+        onChange={onChange}
       />
       <input
         placeholder="Повторите пароль"
@@ -58,7 +58,7 @@ export const Signup = () => {
         id="passwordRep"
         name="passwordRep"
         value={form.passwordRep}
-        onChange={changeHandler}
+        onChange={onChange}
       />
       <button type="button" onClick={onClick}>
         Зарегистрироваться

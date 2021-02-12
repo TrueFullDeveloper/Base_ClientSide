@@ -4,10 +4,13 @@ import {
   REMOVE_HISTORYITEM,
   SEARCH_QUERY,
   FETCH_PROFILE,
+  HIDE_LOADER,
+  SET_COD,
 } from '../types'
 
 const handlers = {
   [SHOW_LOADER]: state => ({ ...state, loading: true }),
+  [HIDE_LOADER]: state => ({ ...state, loading: false }),
   [FETCH_HISTORY]: (state, { payload }) => ({
     ...state,
     history: payload,
@@ -27,7 +30,11 @@ const handlers = {
     profileData: payload,
     loading: false,
   }),
-
+  [SET_COD]: (state, { payload }) => ({
+    ...state,
+    cod: payload,
+    loading: false,
+  }),
   DEFAULT: state => state,
 }
 

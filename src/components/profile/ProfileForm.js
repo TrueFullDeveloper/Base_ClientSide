@@ -1,5 +1,5 @@
 import React, { Fragment, useState, useEffect } from 'react'
-
+import { Link } from 'react-router-dom'
 export const ProfileForm = ({ logout, profileData, profileChange }) => {
   const [form, setForm] = useState({
     userName: profileData.userName,
@@ -22,7 +22,7 @@ export const ProfileForm = ({ logout, profileData, profileChange }) => {
     }
   }, [form, profileChange])
 
-  const changeHandler = event => {
+  const onChange = event => {
     setForm({ ...form, [event.target.name]: event.target.value })
   }
 
@@ -37,18 +37,12 @@ export const ProfileForm = ({ logout, profileData, profileChange }) => {
               id="userName"
               name="userName"
               value={form.userName}
-              onChange={changeHandler}
+              onChange={onChange}
             />
           </div>
           <div>
             <span>Почта</span>
-            <input
-              type="email"
-              id="email"
-              name="email"
-              value={form.email}
-              onChange={changeHandler}
-            />
+            <input type="email" id="email" name="email" value={form.email} onChange={onChange} />
           </div>
           <div>
             <span>Телеграмм</span>
@@ -57,11 +51,13 @@ export const ProfileForm = ({ logout, profileData, profileChange }) => {
               id="telegram"
               name="telegram"
               value={form.telegram}
-              onChange={changeHandler}
+              onChange={onChange}
             />
           </div>
           <div>
-            <input value="Сменить пароль" type="submit" />
+            <button type="button">
+              <Link to="/passworchange">Сменить пароль</Link>
+            </button>
             <button onClick={logout}>Выйти</button>
           </div>
         </form>

@@ -6,6 +6,7 @@ import { History } from './pages/History'
 import { Search } from './pages/Search'
 import { Profile } from './pages/Profile'
 import { PassRecovery } from './pages/PassRecovery'
+import { PasswordChange } from './pages/PasswordChange'
 import { TopQueries } from './pages/TopQueries'
 
 export const useRoutes = isAuthenticated => {
@@ -16,7 +17,7 @@ export const useRoutes = isAuthenticated => {
         <Route path={'/history'} exact component={History} />
         <Route path={'/search'} exact component={Search} />
         <Route path={'/profile'} exact component={Profile} />
-        <Route path={'/passwordrecovery'} exact component={PassRecovery} />
+        <Route path={'/passworchange'} exact component={PasswordChange} />
         <Route path={'/topqueries'} exact component={TopQueries} />
         <Redirect to="/" />
       </Switch>
@@ -27,6 +28,7 @@ export const useRoutes = isAuthenticated => {
     <Switch>
       <Route path={'/login'} exact component={Login} />
       <Route path={'/signin'} exact component={Signup} />
+      <Route path={'/passwordrecovery'} exact component={PassRecovery} />
       <Redirect to="/login" />
     </Switch>
   )

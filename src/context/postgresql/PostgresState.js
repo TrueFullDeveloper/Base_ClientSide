@@ -8,6 +8,8 @@ import {
   REMOVE_HISTORYITEM,
   SEARCH_QUERY,
   FETCH_PROFILE,
+  HIDE_LOADER,
+  SET_COD,
 } from '../types'
 
 export const PostgresState = ({ children }) => {
@@ -15,6 +17,7 @@ export const PostgresState = ({ children }) => {
     history: [],
     response: [],
     profileData: { userName: '', email: '', telegram: '' },
+    cod: '',
     loading: false,
   }
   const [state, dispatch] = useReducer(postgresReducer, initialState)
@@ -84,6 +87,34 @@ export const PostgresState = ({ children }) => {
     }
   }
 
+  const sendEmail = async userEmail => {
+    try {
+      showLoader()
+
+      const res = await axios.post(
+        'https://jsonplaceholder.typicode.com/posts',
+        JSON.stringify(userEmail)
+      )
+      // Далее создаю код, который сервер должен возвратить
+      const payload = '678666'
+
+      dispatch({ type: SET_COD, payload })
+    } catch (e) {
+      console.log(e.message)
+    }
+  }
+  const passwordChange = async newPassword => {
+    try {
+      showLoader()
+
+      await axios.post('https://jsonplaceholder.typicode.com/posts', JSON.stringify(newPassword))
+      console.log(newPassword)
+      dispatch({ type: HIDE_LOADER })
+    } catch (e) {
+      console.log(e.message)
+    }
+  }
+
   return (
     <PostgresContext.Provider
       value={{
@@ -93,10 +124,13 @@ export const PostgresState = ({ children }) => {
         fetchResponse,
         fetchProfile,
         profileChange,
+        passwordChange,
+        sendEmail,
         loading: state.loading,
         history: state.history,
         response: state.response,
         profileData: state.profileData,
+        cod: state.cod,
       }}
     >
       {children}

@@ -6,12 +6,14 @@ const handlers = {
     ...state,
     token: payload.token,
     userId: payload.id,
+    password: payload.password,
     loading: false,
   }),
   [USER_LOGOUT]: state => ({
     ...state,
     token: null,
     userId: null,
+    password: null,
     loading: false,
   }),
 

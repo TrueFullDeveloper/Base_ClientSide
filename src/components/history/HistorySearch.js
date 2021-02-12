@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 
 export const HistorySearch = ({ filterHistory }) => {
-  const [value, setValue] = useState('')
+  const [value, setValue] = useState()
 
   const onClick = event => {
     event.preventDefault()

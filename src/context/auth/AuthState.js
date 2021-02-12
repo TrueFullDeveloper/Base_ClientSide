@@ -10,21 +10,23 @@ export const AuthState = ({ children, setAuthenticated }) => {
   const initialState = {
     token: null,
     userId: null,
+    password: null,
   }
   const [state, dispatch] = useReducer(authReducer, initialState)
 
   const showLoader = () => dispatch({ type: SHOW_LOADER })
 
   const login = useCallback(
-    (jwtToken, id) => {
+    (jwtToken, id, password) => {
       showLoader()
-      const payload = { token: jwtToken, id: id }
+      const payload = { token: jwtToken, id, password: password }
 
       localStorage.setItem(
         storageName,
         JSON.stringify({
           id: id,
           token: jwtToken,
+          password: password,
         })
       )
       setAuthenticated(true)
@@ -53,7 +55,7 @@ export const AuthState = ({ children, setAuthenticated }) => {
 
       const payload = { ...res.data, token: 'ddddddddddddsdssd' }
 
-      login(payload.token, payload.id)
+      login(payload.token, payload.id, userData.password)
     } catch (e) {
       console.log(e.message)
     }
@@ -70,7 +72,7 @@ export const AuthState = ({ children, setAuthenticated }) => {
 
       const payload = { ...res.data, token: 'ddddddddddddsdssd' }
 
-      login(payload.token, payload.id)
+      login(payload.token, payload.id, payload.password)
     } catch (e) {
       console.log(e.message)
     }
@@ -81,7 +83,7 @@ export const AuthState = ({ children, setAuthenticated }) => {
     const userData = JSON.parse(localStorage.getItem(storageName))
 
     if (userData && userData.token) {
-      login(userData.token, userData.id)
+      login(userData.token, userData.id, userData.password)
     }
   }, [login])
 
@@ -93,6 +95,7 @@ export const AuthState = ({ children, setAuthenticated }) => {
         logout,
         userId: state.userId,
         loading: state.loading,
+        password: state.password,
       }}
     >
       {children}

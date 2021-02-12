@@ -10,7 +10,7 @@ export const Login = () => {
     password: '',
   })
 
-  const changeHandler = event => {
+  const onChange = event => {
     setForm({ ...form, [event.target.name]: event.target.value })
   }
 
@@ -27,7 +27,7 @@ export const Login = () => {
         id="email"
         name="email"
         value={form.email}
-        onChange={changeHandler}
+        onChange={onChange}
       />
       <input
         placeholder="Пароль"
@@ -35,7 +35,7 @@ export const Login = () => {
         id="password"
         name="password"
         value={form.password}
-        onChange={changeHandler}
+        onChange={onChange}
       />
       <button type="button" onClick={onClick}>
         Войти
