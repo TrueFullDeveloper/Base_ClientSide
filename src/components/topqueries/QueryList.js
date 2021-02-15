@@ -1,10 +1,16 @@
-import React, { Fragment } from 'react'
+import React from 'react'
 
-export const QueryList = () => {
+export const QueryList = ({ queries }) => {
   return (
-    <Fragment>
-      <div>Queries:</div>
-      <div> </div>
-    </Fragment>
+    <ul>
+      {queries.map(queriesItem => (
+        <li key={queriesItem.id}>
+          <div>
+            <strong>{queriesItem.id}</strong>
+            <small>{queriesItem.title}</small>
+          </div>
+        </li>
+      ))}
+    </ul>
   )
 }

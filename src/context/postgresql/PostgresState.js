@@ -10,12 +10,14 @@ import {
   FETCH_PROFILE,
   HIDE_LOADER,
   SET_COD,
+  FETCH_TOP_QUERIES,
 } from '../types'
 
 export const PostgresState = ({ children }) => {
   const initialState = {
     history: [],
     response: [],
+    queries: [],
     profileData: { userName: '', email: '', telegram: '' },
     cod: '',
     loading: false,
@@ -108,8 +110,23 @@ export const PostgresState = ({ children }) => {
       showLoader()
 
       await axios.post('https://jsonplaceholder.typicode.com/posts', JSON.stringify(newPassword))
-      console.log(newPassword)
+
       dispatch({ type: HIDE_LOADER })
+    } catch (e) {
+      console.log(e.message)
+    }
+  }
+
+  const fetchQueries = async () => {
+    try {
+      showLoader()
+
+      const res = await axios.get('https://jsonplaceholder.typicode.com/todos/?_start=0&_limit=5')
+
+      const payload = Object.keys(res.data).map(key => {
+        return { ...res.data[key] }
+      })
+      dispatch({ type: FETCH_TOP_QUERIES, payload })
     } catch (e) {
       console.log(e.message)
     }
@@ -126,11 +143,13 @@ export const PostgresState = ({ children }) => {
         profileChange,
         passwordChange,
         sendEmail,
+        fetchQueries,
         loading: state.loading,
         history: state.history,
         response: state.response,
         profileData: state.profileData,
         cod: state.cod,
+        queries: state.queries,
       }}
     >
       {children}

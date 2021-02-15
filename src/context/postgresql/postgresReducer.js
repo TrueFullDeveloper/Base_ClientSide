@@ -6,6 +6,7 @@ import {
   FETCH_PROFILE,
   HIDE_LOADER,
   SET_COD,
+  FETCH_TOP_QUERIES,
 } from '../types'
 
 const handlers = {
@@ -33,6 +34,11 @@ const handlers = {
   [SET_COD]: (state, { payload }) => ({
     ...state,
     cod: payload,
+    loading: false,
+  }),
+  [FETCH_TOP_QUERIES]: (state, { payload }) => ({
+    ...state,
+    queries: payload,
     loading: false,
   }),
   DEFAULT: state => state,
