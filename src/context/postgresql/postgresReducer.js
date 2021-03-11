@@ -38,7 +38,8 @@ const handlers = {
   }),
   [FETCH_TOP_QUERIES]: (state, { payload }) => ({
     ...state,
-    queries: payload,
+    queries: payload.queries,
+    graphicData: payload.graphicData,
     loading: false,
   }),
   DEFAULT: state => state,

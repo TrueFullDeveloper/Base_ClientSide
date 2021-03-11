@@ -18,6 +18,7 @@ export const PostgresState = ({ children }) => {
     history: [],
     response: [],
     queries: [],
+    graphicData: { maxValue: 0, queriesValue: [0] },
     profileData: { userName: '', email: '', telegram: '' },
     cod: '',
     loading: false,
@@ -35,6 +36,7 @@ export const PostgresState = ({ children }) => {
     })
     dispatch({ type: FETCH_HISTORY, payload })
   }
+
   const fetchResponse = async (query = null) => {
     showLoader()
     // Пока что query некуда всавлять т.к. запросы идут
@@ -105,6 +107,7 @@ export const PostgresState = ({ children }) => {
       console.log(e.message)
     }
   }
+
   const passwordChange = async newPassword => {
     try {
       showLoader()
@@ -123,9 +126,19 @@ export const PostgresState = ({ children }) => {
 
       const res = await axios.get('https://jsonplaceholder.typicode.com/todos/?_start=0&_limit=5')
 
-      const payload = Object.keys(res.data).map(key => {
+      let payload = Object.keys(res.data).map(key => {
         return { ...res.data[key] }
       })
+
+      const graphicData = {
+        // Данные которые вернет сервер
+        maxValue: 5000,
+        queriesValue: [1200, 2500, 1450, 3000, 2500, 4000, 2000, 4500],
+      }
+      payload = { queries: [...payload], graphicData }
+
+      console.log(payload.graphicData)
+
       dispatch({ type: FETCH_TOP_QUERIES, payload })
     } catch (e) {
       console.log(e.message)
@@ -150,6 +163,7 @@ export const PostgresState = ({ children }) => {
         profileData: state.profileData,
         cod: state.cod,
         queries: state.queries,
+        graphicData: state.graphicData,
       }}
     >
       {children}
