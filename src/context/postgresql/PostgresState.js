@@ -1,7 +1,7 @@
-import React, { useReducer } from 'react'
-import axios from 'axios'
-import { PostgresContext } from './PostgresContext'
-import { postgresReducer } from './postgresReducer'
+import React, { useReducer } from 'react';
+import axios from 'axios';
+import { PostgresContext } from './PostgresContext';
+import { postgresReducer } from './postgresReducer';
 import {
   SHOW_LOADER,
   FETCH_HISTORY,
@@ -11,139 +11,141 @@ import {
   HIDE_LOADER,
   SET_COD,
   FETCH_TOP_QUERIES,
-} from '../types'
+} from '../types';
 
 export const PostgresState = ({ children }) => {
   const initialState = {
     history: [],
     response: [],
     queries: [],
-    graphicData: { maxValue: 0, queriesValue: [0] },
+    graphicData: [[0], [0], [0], [0], [0]],
     profileData: { userName: '', email: '', telegram: '' },
     cod: '',
     loading: false,
-  }
-  const [state, dispatch] = useReducer(postgresReducer, initialState)
+  };
+  const [state, dispatch] = useReducer(postgresReducer, initialState);
 
-  const showLoader = () => dispatch({ type: SHOW_LOADER })
+  const showLoader = () => dispatch({ type: SHOW_LOADER });
 
   const fetchHistory = async () => {
-    showLoader()
-    const res = await axios.get('https://jsonplaceholder.typicode.com/todos/?_start=0&_limit=5')
+    showLoader();
+    const res = await axios.get('https://jsonplaceholder.typicode.com/todos/?_start=0&_limit=5');
 
     const payload = Object.keys(res.data).map(key => {
-      return { ...res.data[key] }
-    })
-    dispatch({ type: FETCH_HISTORY, payload })
-  }
+      return { ...res.data[key] };
+    });
+    dispatch({ type: FETCH_HISTORY, payload });
+  };
 
   const fetchResponse = async (query = null) => {
-    showLoader()
+    showLoader();
     // Пока что query некуда всавлять т.к. запросы идут
     // на фековое API
-    const res = await axios.get('https://jsonplaceholder.typicode.com/todos/?_start=0&_limit=5')
+    const res = await axios.get('https://jsonplaceholder.typicode.com/todos/?_start=0&_limit=5');
 
     const payload = Object.keys(res.data).map(key => {
-      return { ...res.data[key], query: query }
-    })
+      return { ...res.data[key], query: query };
+    });
 
-    dispatch({ type: SEARCH_QUERY, payload })
-  }
+    dispatch({ type: SEARCH_QUERY, payload });
+  };
 
   const removeHistoryItem = async id => {
-    await axios.delete(`https://jsonplaceholder.typicode.com/todos/${id}`)
+    await axios.delete(`https://jsonplaceholder.typicode.com/todos/${id}`);
 
     dispatch({
       type: REMOVE_HISTORYITEM,
       payload: id,
-    })
-  }
+    });
+  };
 
   const fetchProfile = async userId => {
     try {
-      showLoader()
+      showLoader();
 
-      const res = await axios.get(`https://jsonplaceholder.typicode.com/todos/${userId}`)
+      const res = await axios.get(`https://jsonplaceholder.typicode.com/todos/${userId}`);
       // Далее создаю объект, который сервер должен возвратить
       const userData = {
         userName: 'Cezar',
         email: 'wannakillms@gmail.com',
         telegram: '@DieYouWatchCo',
-      }
-      const payload = { ...userData }
+      };
+      const payload = { ...userData };
 
-      dispatch({ type: FETCH_PROFILE, payload })
+      dispatch({ type: FETCH_PROFILE, payload });
     } catch (e) {
-      console.log(e.message)
+      console.log(e.message);
     }
-  }
+  };
 
   const profileChange = async userData => {
     try {
-      showLoader()
+      showLoader();
 
-      await axios.post('https://jsonplaceholder.typicode.com/posts', JSON.stringify(userData))
-      const payload = { ...userData }
+      await axios.post('https://jsonplaceholder.typicode.com/posts', JSON.stringify(userData));
+      const payload = { ...userData };
 
-      dispatch({ type: FETCH_PROFILE, payload })
+      dispatch({ type: FETCH_PROFILE, payload });
     } catch (e) {
-      console.log(e.message)
+      console.log(e.message);
     }
-  }
+  };
 
   const sendEmail = async userEmail => {
     try {
-      showLoader()
+      showLoader();
 
       const res = await axios.post(
         'https://jsonplaceholder.typicode.com/posts',
         JSON.stringify(userEmail)
-      )
+      );
       // Далее создаю код, который сервер должен возвратить
-      const payload = '678666'
+      const payload = '678666';
 
-      dispatch({ type: SET_COD, payload })
+      dispatch({ type: SET_COD, payload });
     } catch (e) {
-      console.log(e.message)
+      console.log(e.message);
     }
-  }
+  };
 
   const passwordChange = async newPassword => {
     try {
-      showLoader()
+      showLoader();
 
-      await axios.post('https://jsonplaceholder.typicode.com/posts', JSON.stringify(newPassword))
+      await axios.post('https://jsonplaceholder.typicode.com/posts', JSON.stringify(newPassword));
 
-      dispatch({ type: HIDE_LOADER })
+      dispatch({ type: HIDE_LOADER });
     } catch (e) {
-      console.log(e.message)
+      console.log(e.message);
     }
-  }
+  };
 
   const fetchQueries = async () => {
     try {
-      showLoader()
+      showLoader();
 
-      const res = await axios.get('https://jsonplaceholder.typicode.com/todos/?_start=0&_limit=5')
+      const res = await axios.get('https://jsonplaceholder.typicode.com/todos/?_start=0&_limit=5');
 
       let payload = Object.keys(res.data).map(key => {
-        return { ...res.data[key] }
-      })
+        return { ...res.data[key] };
+      });
 
-      const graphicData = {
+      const graphicData = [
         // Данные которые вернет сервер
-        maxValue: 5000,
-        queriesValue: [1200, 2500, 1450, 3000, 2500, 4000, 2000, 4500],
-      }
-      payload = { queries: [...payload], graphicData }
+        [1200, 2500, 1450, 3000, 2500, 4000, 2000, 4500],
+        [4500, 2000, 4000, 2500, 3000, 1450, 2500, 1200],
+        [1000, 3500, 2450, 3500, 4500, 1000, 2222, 1600],
+        [3200, 4500, 3450, 1000, 2000, 2000, 1300, 4650],
+        [2200, 1500, 3000, 4000, 3500, 1000, 3000, 3500],
+      ];
 
-      console.log(payload.graphicData)
+      payload = { queries: [...payload], graphicData };
 
-      dispatch({ type: FETCH_TOP_QUERIES, payload })
+      dispatch({ type: FETCH_TOP_QUERIES, payload });
     } catch (e) {
-      console.log(e.message)
+      console.log(e.message);
     }
-  }
+  };
 
   return (
     <PostgresContext.Provider
@@ -168,5 +170,5 @@ export const PostgresState = ({ children }) => {
     >
       {children}
     </PostgresContext.Provider>
-  )
-}
+  );
+};

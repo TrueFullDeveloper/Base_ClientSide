@@ -1,13 +1,13 @@
-import React, { Fragment, useContext } from 'react'
-import { SearchForm } from '../components/search/SearchForm'
-import { VkList } from '../components/search/VkList'
-import { TelegramList } from '../components/search/TelegramList'
-import { YoutubeList } from '../components/search/YoutubeList'
-import { BookList } from '../components/search/BookList'
-import { PostgresContext } from '../context/postgresql/PostgresContext'
+import React, { Fragment, useContext } from 'react';
+import { SearchForm } from '../components/search/SearchForm';
+import { VkList } from '../components/search/VkList';
+import { TelegramList } from '../components/search/TelegramList';
+import { YoutubeList } from '../components/search/YoutubeList';
+import { BookList } from '../components/search/BookList';
+import { PostgresContext } from '../context/postgresql/PostgresContext';
 
 export const Search = () => {
-  const { response } = useContext(PostgresContext)
+  const { response } = useContext(PostgresContext);
   return (
     <Fragment>
       <div>Search</div>
@@ -17,5 +17,5 @@ export const Search = () => {
       <YoutubeList youtubeItems={response} />
       <BookList bookItems={response} />
     </Fragment>
-  )
-}
+  );
+};

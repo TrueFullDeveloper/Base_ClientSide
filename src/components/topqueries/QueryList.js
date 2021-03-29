@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 
 export const QueryList = ({ queries }) => {
   return (
@@ -12,5 +12,5 @@ export const QueryList = ({ queries }) => {
         </li>
       ))}
     </ul>
-  )
-}
+  );
+};

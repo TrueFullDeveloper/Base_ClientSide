@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 
 export const HistoryList = ({ history, onRemove }) => {
   return (
@@ -10,11 +10,11 @@ export const HistoryList = ({ history, onRemove }) => {
             <small>{historyItem.title}</small>
           </div>
 
-          <button type="button" onClick={() => onRemove(historyItem.id)}>
+          <button type='button' onClick={() => onRemove(historyItem.id)}>
             &times;
           </button>
         </li>
       ))}
     </ul>
-  )
-}
+  );
+};

@@ -1,7 +1,7 @@
-import React from 'react'
+import React from 'react';
 
 export const Loader = () => (
-    <div>
-      <span>Loading...</span>
-    </div>
-)
+  <div>
+    <span>Loading...</span>
+  </div>
+);

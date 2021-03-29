@@ -1,13 +1,13 @@
-import { Route, Switch, Redirect } from 'react-router-dom'
-import { Home } from './pages/Home'
-import { Login } from './pages/Login'
-import { Signup } from './pages/Signup'
-import { History } from './pages/History'
-import { Search } from './pages/Search'
-import { Profile } from './pages/Profile'
-import { PassRecovery } from './pages/PassRecovery'
-import { PasswordChange } from './pages/PasswordChange'
-import { TopQueries } from './pages/TopQueries'
+import { Route, Switch, Redirect } from 'react-router-dom';
+import { Home } from './pages/Home';
+import { Login } from './pages/Login';
+import { Signup } from './pages/Signup';
+import { History } from './pages/History';
+import { Search } from './pages/Search';
+import { Profile } from './pages/Profile';
+import { PassRecovery } from './pages/PassRecovery';
+import { PasswordChange } from './pages/PasswordChange';
+import { TopQueries } from './pages/TopQueries';
 
 export const useRoutes = isAuthenticated => {
   if (isAuthenticated) {
@@ -19,9 +19,9 @@ export const useRoutes = isAuthenticated => {
         <Route path={'/profile'} exact component={Profile} />
         <Route path={'/passworchange'} exact component={PasswordChange} />
         <Route path={'/topqueries'} exact component={TopQueries} />
-        <Redirect to="/" />
+        <Redirect to='/' />
       </Switch>
-    )
+    );
   }
 
   return (
@@ -29,7 +29,7 @@ export const useRoutes = isAuthenticated => {
       <Route path={'/login'} exact component={Login} />
       <Route path={'/signin'} exact component={Signup} />
       <Route path={'/passwordrecovery'} exact component={PassRecovery} />
-      <Redirect to="/login" />
+      <Redirect to='/login' />
     </Switch>
-  )
-}
+  );
+};

@@ -1,23 +1,23 @@
-import React from 'react'
-import { NavLink } from 'react-router-dom'
+import React from 'react';
+import { NavLink } from 'react-router-dom';
 
 export const Header = () => {
   return (
     <nav>
       <ul>
         <li>
-          <NavLink to="/">Главная</NavLink>
+          <NavLink to='/'>Главная</NavLink>
         </li>
         <li>
-          <NavLink to="/topqueries">Топ запросов</NavLink>
+          <NavLink to='/topqueries'>Топ запросов</NavLink>
         </li>
         <li>
-          <NavLink to="/history">История</NavLink>
+          <NavLink to='/history'>История</NavLink>
         </li>
         <li>
-          <NavLink to="/profile">Профиль</NavLink>
+          <NavLink to='/profile'>Профиль</NavLink>
         </li>
       </ul>
     </nav>
-  )
-}
+  );
+};

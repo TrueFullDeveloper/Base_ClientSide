@@ -1,5 +1,5 @@
-import React, { Fragment } from 'react'
-import { SearchForm } from '../components/search/SearchForm'
+import React, { Fragment } from 'react';
+import { SearchForm } from '../components/search/SearchForm';
 
 export const Home = () => {
   return (
@@ -7,5 +7,5 @@ export const Home = () => {
       <SearchForm />
       <div>Home</div>
     </Fragment>
-  )
-}
+  );
+};

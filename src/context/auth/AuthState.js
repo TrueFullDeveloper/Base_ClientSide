@@ -1,25 +1,25 @@
-import React, { useReducer, useCallback, useEffect } from 'react'
-import axios from 'axios'
-import { authReducer } from './authReducer'
-import { SHOW_LOADER, USER_LOGIN, USER_LOGOUT } from '../types'
-import { AuthContext } from './AuthContext'
+import React, { useReducer, useCallback, useEffect } from 'react';
+import axios from 'axios';
+import { authReducer } from './authReducer';
+import { SHOW_LOADER, USER_LOGIN, USER_LOGOUT } from '../types';
+import { AuthContext } from './AuthContext';
 
-const storageName = 'UserData'
+const storageName = 'UserData';
 
 export const AuthState = ({ children, setAuthenticated }) => {
   const initialState = {
     token: null,
     userId: null,
     password: null,
-  }
-  const [state, dispatch] = useReducer(authReducer, initialState)
+  };
+  const [state, dispatch] = useReducer(authReducer, initialState);
 
-  const showLoader = () => dispatch({ type: SHOW_LOADER })
+  const showLoader = () => dispatch({ type: SHOW_LOADER });
 
   const login = useCallback(
     (jwtToken, id, password) => {
-      showLoader()
-      const payload = { token: jwtToken, id, password: password }
+      showLoader();
+      const payload = { token: jwtToken, id, password: password };
 
       localStorage.setItem(
         storageName,
@@ -28,64 +28,64 @@ export const AuthState = ({ children, setAuthenticated }) => {
           token: jwtToken,
           password: password,
         })
-      )
-      setAuthenticated(true)
+      );
+      setAuthenticated(true);
 
-      dispatch({ type: USER_LOGIN, payload })
+      dispatch({ type: USER_LOGIN, payload });
     },
     [setAuthenticated]
-  )
+  );
 
   const logout = useCallback(() => {
-    showLoader()
-    localStorage.removeItem(storageName)
-    setAuthenticated(false)
+    showLoader();
+    localStorage.removeItem(storageName);
+    setAuthenticated(false);
 
-    dispatch({ type: USER_LOGOUT })
-  }, [setAuthenticated])
+    dispatch({ type: USER_LOGOUT });
+  }, [setAuthenticated]);
 
   const fetchLogin = async userData => {
     try {
-      showLoader()
+      showLoader();
 
       const res = await axios.post(
         'https://jsonplaceholder.typicode.com/posts',
         JSON.stringify(userData)
-      )
+      );
 
-      const payload = { ...res.data, token: 'ddddddddddddsdssd' }
+      const payload = { ...res.data, token: 'ddddddddddddsdssd' };
 
-      login(payload.token, payload.id, userData.password)
+      login(payload.token, payload.id, userData.password);
     } catch (e) {
-      console.log(e.message)
+      console.log(e.message);
     }
-  }
+  };
 
   const fetchSignup = async userData => {
     try {
-      showLoader()
+      showLoader();
 
       const res = await axios.post(
         'https://jsonplaceholder.typicode.com/posts',
         JSON.stringify(userData)
-      )
+      );
 
-      const payload = { ...res.data, token: 'ddddddddddddsdssd' }
+      const payload = { ...res.data, token: 'ddddddddddddsdssd' };
 
-      login(payload.token, payload.id, payload.password)
+      login(payload.token, payload.id, payload.password);
     } catch (e) {
-      console.log(e.message)
+      console.log(e.message);
     }
-  }
+  };
 
   useEffect(() => {
-    showLoader()
-    const userData = JSON.parse(localStorage.getItem(storageName))
+    showLoader();
+    const userData = JSON.parse(localStorage.getItem(storageName));
 
     if (userData && userData.token) {
-      login(userData.token, userData.id, userData.password)
+      login(userData.token, userData.id, userData.password);
     }
-  }, [login])
+  }, [login]);
 
   return (
     <AuthContext.Provider
@@ -100,5 +100,5 @@ export const AuthState = ({ children, setAuthenticated }) => {
     >
       {children}
     </AuthContext.Provider>
-  )
-}
+  );
+};

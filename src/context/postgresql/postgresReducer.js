@@ -7,7 +7,7 @@ import {
   HIDE_LOADER,
   SET_COD,
   FETCH_TOP_QUERIES,
-} from '../types'
+} from '../types';
 
 const handlers = {
   [SHOW_LOADER]: state => ({ ...state, loading: true }),
@@ -43,9 +43,9 @@ const handlers = {
     loading: false,
   }),
   DEFAULT: state => state,
-}
+};
 
 export const postgresReducer = (state, action) => {
-  const handle = handlers[action.type] || handlers.DEFAULT
-  return handle(state, action)
-}
+  const handle = handlers[action.type] || handlers.DEFAULT;
+  return handle(state, action);
+};

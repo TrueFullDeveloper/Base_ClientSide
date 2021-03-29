@@ -1,16 +1,16 @@
-import React, { Fragment, useContext, useEffect } from 'react'
-import { QueryList } from '../components/topqueries/QueryList'
-import { Loader } from '../components/loader/Loader'
-import { PostgresContext } from '../context/postgresql/PostgresContext'
-import { QueryGraphic } from '../components/topqueries/QueryGraphic'
+import React, { Fragment, useContext, useEffect } from 'react';
+import { QueryList } from '../components/topqueries/QueryList';
+import { Loader } from '../components/loader/Loader';
+import { PostgresContext } from '../context/postgresql/PostgresContext';
+import { QueryGraphic } from '../components/topqueries/QueryGraphic';
 
 export const TopQueries = () => {
-  const { fetchQueries, queries, graphicData, loading } = useContext(PostgresContext)
+  const { fetchQueries, queries, graphicData, loading } = useContext(PostgresContext);
 
   useEffect(() => {
-    fetchQueries()
+    fetchQueries();
     // eslint-disable-next-line
-  }, [])
+  }, []);
 
   return (
     <Fragment>
@@ -25,5 +25,5 @@ export const TopQueries = () => {
         </Fragment>
       )}
     </Fragment>
-  )
-}
+  );
+};

@@ -1,4 +1,4 @@
-import { SHOW_LOADER, USER_LOGIN, USER_LOGOUT } from '../types'
+import { SHOW_LOADER, USER_LOGIN, USER_LOGOUT } from '../types';
 
 const handlers = {
   [SHOW_LOADER]: state => ({ ...state, loading: true }),
@@ -18,9 +18,9 @@ const handlers = {
   }),
 
   DEFAULT: state => state,
-}
+};
 
 export const authReducer = (state, action) => {
-  const handle = handlers[action.type] || handlers.DEFAULT
-  return handle(state, action)
-}
+  const handle = handlers[action.type] || handlers.DEFAULT;
+  return handle(state, action);
+};
