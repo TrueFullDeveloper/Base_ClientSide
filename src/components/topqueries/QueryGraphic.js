@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState, useMemo } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 // C R I N G E   T R O L L I N G   BEGIN
 const style = {
   width: '720px',
@@ -18,8 +18,6 @@ const styleTwo = {
   top: '305px',
   left: '40px',
 };
-
-const storageName = 'ConvertData';
 
 const lenearFunction = (x, x1, x2, y1, y2) => Math.round(((x - x1) / (x2 - x1)) * (y2 - y1) + y1);
 
@@ -152,6 +150,10 @@ export const QueryGraphic = ({ graphicData }) => {
   const { maxValue } = getBoundaryValue(graphicData);
   const convertValue = 350 / maxValue;
 
+  let isHold = false;
+  let holdX, holdY;
+  let holdLineNum;
+
   graphicData.map((graphicArray, lineId) => {
     graphicArray.map(y => {
       y = Math.round(350 - convertValue * y + 50);
@@ -185,10 +187,6 @@ export const QueryGraphic = ({ graphicData }) => {
 
     drawGrid(canvasStorage[5].contextRef, yTiksValue, xTiksValue, 66); // Set Grid
   }, []);
-
-  let isHold = false;
-  let holdX, holdY;
-  let holdLineNum;
 
   const listener = ({ nativeEvent }) => {
     //Listeners

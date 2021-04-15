@@ -3,6 +3,7 @@ import { QueryList } from '../components/topqueries/QueryList';
 import { Loader } from '../components/loader/Loader';
 import { PostgresContext } from '../context/postgresql/PostgresContext';
 import { QueryGraphic } from '../components/topqueries/QueryGraphic';
+import { QueryDiagram } from '../components/topqueries/QueryDiagram';
 
 export const TopQueries = () => {
   const { fetchQueries, queries, graphicData, loading } = useContext(PostgresContext);
@@ -22,6 +23,7 @@ export const TopQueries = () => {
         <Fragment>
           <QueryList queries={queries} />
           <QueryGraphic graphicData={graphicData} />
+          <QueryDiagram graphicData={graphicData} />
         </Fragment>
       )}
     </Fragment>
