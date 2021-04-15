@@ -38,5 +38,9 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  }
+  },
+  "description": "Base Front",
+  "main": "index.js",
+  "repository": "https://github.com/TrueFullDeveloper/Base_ClientSide.git",
+  "license": "MIT"
 }
