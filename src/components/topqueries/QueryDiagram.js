@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 
 const DIAGRAM_COLORS = ["#2231B8", "#902222", "#53238F", "#D9BC25", "#21A1CA"];
 const DIAGRAM_RADIUS = 172;
@@ -28,7 +28,7 @@ const getAngles = (data) => {
 
   allPercent.map((percent) => {
     anglesArray.push({
-      start: startAngle, // Degrees
+      start: startAngle,
       end: startAngle + ((Math.PI / 180) * percent * 360) / 100,
     });
 
@@ -38,8 +38,9 @@ const getAngles = (data) => {
   return anglesArray; // In Radians
 };
 
-const drawDiagram = (diagramRef, colorsArray, anglesArray) => {
-  // Без moveTo() рисует то, что мне нужно
+const drawDiagram = (diagramRef, colorsArray, queryData) => {
+  let anglesArray = getAngles(queryData);
+
   anglesArray.map((sector, index) => {
     diagramRef.current.fillStyle = colorsArray[index];
 
@@ -58,18 +59,14 @@ const drawDiagram = (diagramRef, colorsArray, anglesArray) => {
     diagramRef.current.fill();
   });
   diagramRef.current.closePath();
-};
-
-const initDiagram = (data, diagramRef) => {
-  let anglesArray = getAngles(data);
-
-  drawDiagram(diagramRef, DIAGRAM_COLORS, anglesArray);
 
   return anglesArray;
 };
 
-const diagramAnimation = (diagramRef, colorsArray, anglesArray) => {
+const diagramAnimation = (diagramRef, colorsArray, anglesArray, x, y) => {
   diagramRef.current.clearRect(0, 0, 600, 600);
+
+  const sectorNumber = getSectorByCoordinates(x, y, anglesArray);
 
   const CORRECT_ANGLE = 6 * (Math.PI / 180);
 
@@ -79,7 +76,6 @@ const diagramAnimation = (diagramRef, colorsArray, anglesArray) => {
     diagramRef.current.fillStyle = colorsArray[index];
 
     diagramRef.current.beginPath();
-    //diagramRef.current.moveTo(CIRCLE_CENTER, CIRCLE_CENTER);
 
     diagramRef.current.arc(
       Math.cos(sector.start + (sector.end - sector.start) / 2) * 23.5 +
@@ -115,17 +111,13 @@ const diagramAnimation = (diagramRef, colorsArray, anglesArray) => {
     );
 
     diagramRef.current.lineTo(
-      Math.cos(sector.start + CORRECT_ANGLE) * (DIAGRAM_RADIUS + 0) +
-        CIRCLE_CENTER,
-      Math.sin(sector.start + CORRECT_ANGLE) * (DIAGRAM_RADIUS + 0) +
-        CIRCLE_CENTER
+      Math.cos(sector.start + CORRECT_ANGLE) * DIAGRAM_RADIUS + CIRCLE_CENTER,
+      Math.sin(sector.start + CORRECT_ANGLE) * DIAGRAM_RADIUS + CIRCLE_CENTER
     );
 
     diagramRef.current.lineTo(
-      Math.cos(sector.end - CORRECT_ANGLE) * (DIAGRAM_RADIUS + 0) +
-        CIRCLE_CENTER,
-      Math.sin(sector.end - CORRECT_ANGLE) * (DIAGRAM_RADIUS + 0) +
-        CIRCLE_CENTER
+      Math.cos(sector.end - CORRECT_ANGLE) * DIAGRAM_RADIUS + CIRCLE_CENTER,
+      Math.sin(sector.end - CORRECT_ANGLE) * DIAGRAM_RADIUS + CIRCLE_CENTER
     );
 
     diagramRef.current.lineTo(
@@ -139,7 +131,8 @@ const diagramAnimation = (diagramRef, colorsArray, anglesArray) => {
     diagramRef.current.closePath();
     diagramRef.current.fill();
   });
-  //diagramRef.current.closePath();
+
+  drawLineLable(diagramRef, x, y);
 };
 
 const getSectorByCoordinates = (x, y, sectorAngles) => {
@@ -193,11 +186,41 @@ const getSectorByCoordinates = (x, y, sectorAngles) => {
   return sectorNumber;
 };
 
+const drawLineLable = (diagramRef, x, y) => {
+  diagramRef.current.strokeStyle = "#B9B9B9";
+
+  diagramRef.current.lineWidth = 4;
+
+  diagramRef.current.beginPath();
+
+  diagramRef.current.arc(x, y, 10, 0, 2 * Math.PI, false);
+  diagramRef.current.stroke();
+
+  diagramRef.current.beginPath();
+  diagramRef.current.moveTo(
+    -Math.cos(Math.sqrt(2) / 2) * 10 + x,
+    -Math.sin(Math.sqrt(2) / 2) * 10 + y
+  );
+
+  diagramRef.current.lineTo(
+    -Math.cos(Math.sqrt(2) / 2) * 166 + x,
+    -Math.sin(Math.sqrt(2) / 2) * 166 + y
+  );
+
+  diagramRef.current.lineTo(
+    -Math.cos(Math.sqrt(2) / 2) * 166 + x + 185,
+    -Math.sin(Math.sqrt(2) / 2) * 166 + y
+  );
+
+  diagramRef.current.stroke();
+};
+
 export const QueryDiagram = ({ graphicData }) => {
   const canvasRef = useRef(null);
   const contextRef = useRef(null);
 
-  let sectorAnglesArray = [];
+  const [isAnimated, setAnimated] = useState(false);
+  const [sectorAnglesArray, setSectorAnglesArray] = useState([]);
 
   useEffect(() => {
     canvasRef.current.width = 600;
@@ -205,17 +228,29 @@ export const QueryDiagram = ({ graphicData }) => {
 
     contextRef.current = canvasRef.current.getContext("2d");
 
-    //Inition
-    sectorAnglesArray = initDiagram(graphicData, contextRef);
-    console.log(sectorAnglesArray);
+    //Inition Diagram
+    setSectorAnglesArray(drawDiagram(contextRef, DIAGRAM_COLORS, graphicData));
   }, []);
 
   const onClick = ({ nativeEvent }) => {
     const { offsetX, offsetY } = nativeEvent;
 
-    getSectorByCoordinates(offsetX, offsetY, sectorAnglesArray);
+    if (isAnimated) {
+      contextRef.current.clearRect(0, 0, 600, 600);
+      drawDiagram(contextRef, DIAGRAM_COLORS, graphicData);
+      setAnimated(false);
+      return;
+    }
 
-    diagramAnimation(contextRef, DIAGRAM_COLORS, sectorAnglesArray);
+    diagramAnimation(
+      contextRef,
+      DIAGRAM_COLORS,
+      sectorAnglesArray,
+      offsetX,
+      offsetY
+    );
+
+    setAnimated(true);
   };
 
   return (
