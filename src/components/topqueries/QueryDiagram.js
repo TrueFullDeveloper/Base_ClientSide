@@ -1,4 +1,5 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState, useContext } from "react";
+import { LabelContext } from "../../context/label/LabelContext";
 
 const DIAGRAM_COLORS = ["#2231B8", "#902222", "#53238F", "#D9BC25", "#21A1CA"];
 const DIAGRAM_RADIUS = 172;
@@ -64,6 +65,14 @@ const drawDiagram = (diagramRef, colorsArray, queryData) => {
 };
 
 const diagramAnimation = (diagramRef, colorsArray, anglesArray, x, y) => {
+  // Circle Validation
+  if (
+    Math.pow(x - CIRCLE_CENTER, 2) + Math.pow(y - CIRCLE_CENTER, 2) >
+    Math.pow(DIAGRAM_RADIUS, 2)
+  ) {
+    return;
+  }
+
   diagramRef.current.clearRect(0, 0, 600, 600);
 
   const sectorNumber = getSectorByCoordinates(x, y, anglesArray);
@@ -222,6 +231,8 @@ export const QueryDiagram = ({ graphicData }) => {
   const [isAnimated, setAnimated] = useState(false);
   const [sectorAnglesArray, setSectorAnglesArray] = useState([]);
 
+  const { showLabel, hideLabel } = useContext(LabelContext);
+
   useEffect(() => {
     canvasRef.current.width = 600;
     canvasRef.current.height = 600;
@@ -238,6 +249,7 @@ export const QueryDiagram = ({ graphicData }) => {
     if (isAnimated) {
       contextRef.current.clearRect(0, 0, 600, 600);
       drawDiagram(contextRef, DIAGRAM_COLORS, graphicData);
+      hideLabel();
       setAnimated(false);
       return;
     }
@@ -250,6 +262,7 @@ export const QueryDiagram = ({ graphicData }) => {
       offsetY
     );
 
+    showLabel();
     setAnimated(true);
   };
 

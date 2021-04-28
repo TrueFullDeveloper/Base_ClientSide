@@ -1,12 +1,15 @@
-import React, { Fragment, useContext, useEffect } from 'react';
-import { QueryList } from '../components/topqueries/QueryList';
-import { Loader } from '../components/loader/Loader';
-import { PostgresContext } from '../context/postgresql/PostgresContext';
-import { QueryGraphic } from '../components/topqueries/QueryGraphic';
-import { QueryDiagram } from '../components/topqueries/QueryDiagram';
+import React, { Fragment, useContext, useEffect } from "react";
+import { QueryList } from "../components/topqueries/QueryList";
+import { Loader } from "../components/loader/Loader";
+import { PostgresContext } from "../context/postgresql/PostgresContext";
+import { QueryGraphic } from "../components/topqueries/QueryGraphic";
+import { QueryDiagram } from "../components/topqueries/QueryDiagram";
+import { DiagramLabel } from "../components/topqueries/DiagramLabel";
 
 export const TopQueries = () => {
-  const { fetchQueries, queries, graphicData, loading } = useContext(PostgresContext);
+  const { fetchQueries, queries, graphicData, loading } = useContext(
+    PostgresContext
+  );
 
   useEffect(() => {
     fetchQueries();
@@ -24,6 +27,7 @@ export const TopQueries = () => {
           <QueryList queries={queries} />
           <QueryGraphic graphicData={graphicData} />
           <QueryDiagram graphicData={graphicData} />
+          <DiagramLabel />
         </Fragment>
       )}
     </Fragment>
