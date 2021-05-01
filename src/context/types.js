@@ -8,6 +8,8 @@ export const USER_LOGIN = "USER_LOGIN";
 export const USER_LOGOUT = "USER_LOGOUT";
 export const SET_COD = "SET_COD";
 export const FETCH_TOP_QUERIES = "FETCH_TOP_QUERIES";
-
+//Label Context
 export const SHOW_LABEL = "SHOW_LABEL";
 export const HIDE_LABEL = "HIDE_LABEL";
+//Expand Header Context
+export const SET_TYPE_PERIOD = "SET_TYPE_PERIOD";

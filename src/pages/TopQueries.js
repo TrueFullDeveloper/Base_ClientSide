@@ -5,6 +5,7 @@ import { PostgresContext } from "../context/postgresql/PostgresContext";
 import { QueryGraphic } from "../components/topqueries/QueryGraphic";
 import { QueryDiagram } from "../components/topqueries/QueryDiagram";
 import { DiagramLabel } from "../components/topqueries/DiagramLabel";
+import { ExpandHeader } from "../components/topqueries/ExpandHeader";
 
 export const TopQueries = () => {
   const { fetchQueries, queries, graphicData, loading } = useContext(
@@ -18,6 +19,7 @@ export const TopQueries = () => {
 
   return (
     <Fragment>
+      <ExpandHeader />
       <div>Top Queries</div>
 
       {loading ? ( // Клятые скобки, которые добавляет Prittier,

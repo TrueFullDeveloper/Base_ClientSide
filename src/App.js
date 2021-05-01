@@ -5,6 +5,7 @@ import { useRoutes } from "./routes";
 import { Header } from "./components/header/Header";
 import { AuthState } from "./context/auth/AuthState";
 import { LabelState } from "./context/label/LabelState";
+import { ExpandHeaderState } from "./context/expandHeader/ExpandHeaderState";
 
 function App() {
   const [isAuthenticated, setAuthenticated] = useState(false);
@@ -14,10 +15,12 @@ function App() {
     <AuthState setAuthenticated={setAuthenticated}>
       <PostgresState>
         <LabelState>
-          <BrowserRouter>
-            {isAuthenticated && <Header />}
-            {routes}
-          </BrowserRouter>
+          <ExpandHeaderState>
+            <BrowserRouter>
+              {isAuthenticated && <Header />}
+              {routes}
+            </BrowserRouter>
+          </ExpandHeaderState>
         </LabelState>
       </PostgresState>
     </AuthState>
