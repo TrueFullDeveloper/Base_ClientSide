@@ -13,3 +13,5 @@ export const SHOW_LABEL = "SHOW_LABEL";
 export const HIDE_LABEL = "HIDE_LABEL";
 //Expand Header Context
 export const SET_TYPE_PERIOD = "SET_TYPE_PERIOD";
+//Graphic Context
+export const SET_COORDINATES = "SET_COORDINATES";

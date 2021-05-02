@@ -1,6 +1,8 @@
 import React, { useEffect, useRef, useState, useContext } from "react";
 import { ExpandHeaderContext } from "../../context/expandHeader/ExpandHeaderContext";
+import { GraphicContext } from "../../context/graphic/GraphicContext";
 // C R I N G E   T R O L L I N G   BEGIN
+
 const style = {
   width: "720px",
   height: "480px",
@@ -8,9 +10,6 @@ const style = {
   borderRadius: "10px",
   marginLeft: "40px",
   marginBottom: "80px",
-  // position: 'absolute',
-  // top: '305px',
-  // left: '40px',
 };
 const styleTwo = {
   width: "720px",
@@ -20,178 +19,24 @@ const styleTwo = {
   left: "40px",
 };
 
-//Pure
-const lenearFunction = (x, x1, x2, y1, y2) =>
-  Math.round(((x - x1) / (x2 - x1)) * (y2 - y1) + y1);
-//Pure
-const getBoundaryValue = (graphicValues) => {
-  let tempArray = [];
-
-  graphicValues.map((graphicArray) => {
-    tempArray = tempArray.concat(graphicArray);
-  });
-
-  let maxValue = Math.max.apply(null, tempArray);
-  let minValue = Math.min.apply(null, tempArray);
-
-  minValue -=
-    minValue % Number("1" + "0".repeat(minValue.toString().length - 1));
-  maxValue =
-    maxValue -
-    (maxValue % Number("1" + "0".repeat(maxValue.toString().length - 1))) +
-    Number("1" + "0".repeat(maxValue.toString().length - 1));
-
-  return { maxValue, minValue };
-};
-
-//Pure
-const refreshLine = (lineRef, graphicArray) => {
-  lineRef.current.clearRect(0, 0, 720, 480); // Clear Canvas
-
-  // Redraw Line
-  lineRef.current.lineWidth = 3;
-
-  lineRef.current.beginPath(); // Set origin
-  lineRef.current.moveTo(graphicArray[0].x, graphicArray[0].y);
-
-  graphicArray.map((coordinate) => {
-    const { x, y } = coordinate;
-
-    lineRef.current.lineTo(x, y);
-    lineRef.current.stroke();
-  });
-};
-
-//Pure
-const drawMark = (lineRef, markValue, coordinate) => {
-  // Draw Circle
-  lineRef.current.beginPath();
-  lineRef.current.fillStyle = "#2D2D2D";
-  lineRef.current.arc(coordinate.x, coordinate.y, 9, 0, Math.PI * 2);
-  lineRef.current.fill();
-
-  lineRef.current.stroke();
-  // Draw Lable
-  lineRef.current.fillStyle = "#171717";
-  lineRef.current.fillRect(coordinate.x - 20, coordinate.y - 30, 40, 20);
-
-  lineRef.current.font = "10px Roboto"; // Text Setting
-  lineRef.current.textAlign = "center";
-  lineRef.current.fillStyle = "#9F9F9F";
-
-  lineRef.current.fillText(markValue, coordinate.x, coordinate.y - 15);
-};
-
-//Pure
-const drawGrid = (contextRef, yTiksValue, xTiksValue, tickStep = 66) => {
-  contextRef.current.lineWidth = 2;
-  contextRef.current.strokeStyle = "#FAF3F3";
-  contextRef.current.beginPath();
-  contextRef.current.moveTo(102, 405);
-
-  contextRef.current.lineTo(630, 405); // X Line
-
-  contextRef.current.lineTo(623, 398); // Arrow
-  contextRef.current.lineTo(630, 405);
-  contextRef.current.lineTo(623, 412);
-  contextRef.current.stroke();
-
-  contextRef.current.font = "10px Roboto"; // Text Setting
-  contextRef.current.textAlign = "center";
-  contextRef.current.fillStyle = "#9F9F9F";
-
-  let i = 0; // Draw Ticks
-  for (let x = 102; x < 630; x += tickStep) {
-    contextRef.current.beginPath();
-    contextRef.current.moveTo(x, 407);
-    contextRef.current.lineTo(x, 401);
-    contextRef.current.stroke();
-
-    contextRef.current.fillText(xTiksValue[i], x, 425);
-    i++;
-  }
-
-  contextRef.current.strokeStyle = "rgba(242, 242, 242, 0.25)"; // Grid Color
-  contextRef.current.textAlign = "end";
-
-  i = 4; // Grid Draw Grid
-  for (let y = 50; y < 351; y += 70) {
-    contextRef.current.beginPath();
-    contextRef.current.moveTo(102, y);
-    contextRef.current.lineTo(630, y);
-    contextRef.current.stroke();
-
-    contextRef.current.fillText(yTiksValue[i], 87, y + 3);
-    i--;
-  }
-};
-
-//Pure
-const initGraphicData = (graphicData, typeQuery = "day") => {
-  const { maxValue, minValue } = getBoundaryValue(graphicData);
-
-  let yTiksValue = [];
-  let xTiksValue = [];
-
-  let tick = (maxValue - minValue) / 4;
-  let temp = minValue;
-  for (let i = 0; i < 5; i++) {
-    yTiksValue.push(temp);
-    temp += tick;
-  }
-
-  switch (typeQuery) {
-    case "day":
-      xTiksValue = [
-        "00:00",
-        "03:00",
-        "06:00",
-        "09:00",
-        "12:00",
-        "15:00",
-        "18:00",
-        "21:00",
-      ];
-      break;
-
-    case "week":
-      xTiksValue = ["Пн", "Вт", "Ср", "Чт", "Пт", "Сб", "Вс"];
-      break;
-
-    case "month":
-      xTiksValue = ["Нед. 1", "Нед. 2", "Нед. 3", "Нед. 4"];
-      break;
-
-    default:
-      break;
-  }
-
-  return { yTiksValue, xTiksValue };
-};
-
 export const QueryGraphic = ({ graphicData }) => {
-  let convertCoordinates = [[], [], [], [], []];
-
   const { periodType } = useContext(ExpandHeaderContext);
 
-  let x = 102;
-  const { maxValue } = getBoundaryValue(graphicData);
-  const convertValue = 350 / maxValue;
+  const {
+    setGraphic,
+    refreshLine,
+    drawMark,
+    lenearFunction,
+    convertCoordinates,
+  } = useContext(GraphicContext);
+
+  console.log(convertCoordinates);
 
   let isHold = false;
   let holdX, holdY;
   let holdLineNum;
-
-  graphicData.map((graphicArray, lineId) => {
-    graphicArray.map((y) => {
-      y = Math.round(350 - convertValue * y + 50);
-      convertCoordinates[lineId].push({ x, y });
-      x += 66;
-    });
-    x = 102;
-  });
-
   let canvasStorage = [];
+
   canvasStorage.push({ canvasRef: useRef(null), contextRef: useRef(null) });
   canvasStorage.push({ canvasRef: useRef(null), contextRef: useRef(null) });
   canvasStorage.push({ canvasRef: useRef(null), contextRef: useRef(null) });
@@ -199,7 +44,14 @@ export const QueryGraphic = ({ graphicData }) => {
   canvasStorage.push({ canvasRef: useRef(null), contextRef: useRef(null) });
   canvasStorage.push({ canvasRef: useRef(null), contextRef: useRef(null) });
 
-  const [isDrawing, setDrawing] = useState(true); // Flags for listener
+  // Flags for Listener and OnClick Function
+  const [lineIsDrawing, setLineIsDrawing] = useState([
+    true,
+    true,
+    true,
+    true,
+    true,
+  ]);
   const [lineIsDrawn, setLineIsDrawn] = useState([
     false,
     false,
@@ -207,6 +59,7 @@ export const QueryGraphic = ({ graphicData }) => {
     false,
     false,
   ]);
+
   const [timerIdStore, setTimerIdStore] = useState(Array(5));
 
   useEffect(() => {
@@ -217,21 +70,63 @@ export const QueryGraphic = ({ graphicData }) => {
       canvItem.contextRef.current = canvItem.canvasRef.current.getContext("2d");
     });
 
-    const { yTiksValue, xTiksValue } = initGraphicData(graphicData);
+    setGraphic(graphicData, periodType, canvasStorage[5].contextRef);
+  }, [periodType]);
 
-    drawGrid(canvasStorage[5].contextRef, yTiksValue, xTiksValue, 66); // Set Grid
-  }, []);
+  const animation = (contextRef, coordinates, lineId) => {
+    lineIsDrawing[lineId] = true;
+    setLineIsDrawing([...lineIsDrawing]);
+
+    let i = 0;
+    let y = 0;
+    let x = coordinates[i].x;
+
+    contextRef.current.lineWidth = 3; // Line Settings
+    contextRef.current.beginPath(); // Set origin
+    contextRef.current.moveTo(coordinates[0].x, coordinates[0].y);
+
+    let timerId = setInterval(() => {
+      y = lenearFunction(
+        x,
+        coordinates[i].x,
+        coordinates[i + 1].x,
+        coordinates[i].y,
+        coordinates[i + 1].y
+      );
+
+      contextRef.current.lineTo(x, y);
+      contextRef.current.stroke();
+
+      contextRef.current.beginPath(); // Чтобы не появлялись "лесенки" при отрисовки графика
+      contextRef.current.arc(x, y, 1, 0, Math.PI * 2);
+      contextRef.current.fill();
+
+      contextRef.current.beginPath();
+      contextRef.current.moveTo(x, y);
+
+      x += 3; // Step for Animation
+
+      if (x > coordinates[i + 1].x) {
+        i++;
+
+        if (i > coordinates.length - 2) {
+          clearInterval(timerId);
+
+          lineIsDrawing[lineId] = false;
+          setLineIsDrawing([...lineIsDrawing]);
+        }
+        x = coordinates[i].x;
+      }
+    }, 6);
+
+    return timerId;
+  };
 
   const listener = ({ nativeEvent }) => {
-    //Listeners
-    if (isDrawing) {
-      return;
-    }
-
     const { offsetX, offsetY } = nativeEvent;
 
     convertCoordinates.map((coordinates, lineId) => {
-      if (!lineIsDrawn[lineId]) {
+      if (!lineIsDrawn[lineId] || lineIsDrawing[lineId]) {
         return;
       }
 
@@ -318,6 +213,7 @@ export const QueryGraphic = ({ graphicData }) => {
               isHold = true;
               holdLineNum = lineId;
               break;
+
             default:
               break;
           }
@@ -345,6 +241,7 @@ export const QueryGraphic = ({ graphicData }) => {
         case 1:
           canvasStorage[holdLineNum].contextRef.current.strokeStyle = "#902222";
           canvasStorage[holdLineNum].contextRef.current.fillStyle = "#902222";
+
           refreshLine(
             canvasStorage[holdLineNum].contextRef,
             convertCoordinates[holdLineNum]
@@ -354,6 +251,7 @@ export const QueryGraphic = ({ graphicData }) => {
         case 2:
           canvasStorage[holdLineNum].contextRef.current.strokeStyle = "#53238F";
           canvasStorage[holdLineNum].contextRef.current.fillStyle = "#53238F";
+
           refreshLine(
             canvasStorage[holdLineNum].contextRef,
             convertCoordinates[holdLineNum]
@@ -363,6 +261,7 @@ export const QueryGraphic = ({ graphicData }) => {
         case 3:
           canvasStorage[holdLineNum].contextRef.current.strokeStyle = "#D9BC25";
           canvasStorage[holdLineNum].contextRef.current.fillStyle = "#D9BC25";
+
           refreshLine(
             canvasStorage[holdLineNum].contextRef,
             convertCoordinates[holdLineNum]
@@ -372,68 +271,20 @@ export const QueryGraphic = ({ graphicData }) => {
         case 4:
           canvasStorage[holdLineNum].contextRef.current.strokeStyle = "#21A1CA";
           canvasStorage[holdLineNum].contextRef.current.fillStyle = "#21A1CA";
+
           refreshLine(
             canvasStorage[holdLineNum].contextRef,
             convertCoordinates[holdLineNum]
           );
-
           break;
+
         default:
           break;
       }
     }
   };
 
-  const animation = (contextRef, coordinates) => {
-    setDrawing(true);
-
-    contextRef.current.lineWidth = 3; // Line Settings
-
-    contextRef.current.beginPath(); // Set origin
-    contextRef.current.moveTo(coordinates[0].x, coordinates[0].y);
-
-    let i = 0;
-    let y = 0;
-    let x = coordinates[i].x;
-
-    let timerId = setInterval(() => {
-      y = lenearFunction(
-        x,
-        coordinates[i].x,
-        coordinates[i + 1].x,
-        coordinates[i].y,
-        coordinates[i + 1].y
-      );
-
-      contextRef.current.lineTo(x, y);
-      contextRef.current.stroke();
-
-      contextRef.current.beginPath(); // Чтобы не появлялись "лесенки" при отрисовки графика
-      contextRef.current.arc(x, y, 1, 0, Math.PI * 2);
-      contextRef.current.fill();
-
-      contextRef.current.beginPath();
-      contextRef.current.moveTo(x, y);
-
-      x += 3; // Step for Animation
-
-      if (x > coordinates[i + 1].x) {
-        i++;
-
-        if (i > coordinates.length - 2) {
-          clearInterval(timerId);
-          setDrawing(false);
-        }
-        x = coordinates[i].x;
-      }
-    }, 6);
-
-    return timerId;
-  };
-
   const onClick = (lineId) => {
-    console.log("From graph ", periodType);
-
     switch (lineId) {
       case 0:
         if (lineIsDrawn[lineId]) {
@@ -445,8 +296,10 @@ export const QueryGraphic = ({ graphicData }) => {
 
           timerIdStore[lineId] = animation(
             canvasStorage[lineId].contextRef,
-            convertCoordinates[lineId]
+            convertCoordinates[lineId],
+            lineId
           );
+
           setTimerIdStore([...timerIdStore]);
         }
         break;
@@ -461,8 +314,10 @@ export const QueryGraphic = ({ graphicData }) => {
 
           timerIdStore[lineId] = animation(
             canvasStorage[lineId].contextRef,
-            convertCoordinates[lineId]
+            convertCoordinates[lineId],
+            lineId
           );
+
           setTimerIdStore([...timerIdStore]);
         }
         break;
@@ -477,8 +332,10 @@ export const QueryGraphic = ({ graphicData }) => {
 
           timerIdStore[lineId] = animation(
             canvasStorage[lineId].contextRef,
-            convertCoordinates[lineId]
+            convertCoordinates[lineId],
+            lineId
           );
+
           setTimerIdStore([...timerIdStore]);
         }
         break;
@@ -493,8 +350,10 @@ export const QueryGraphic = ({ graphicData }) => {
 
           timerIdStore[lineId] = animation(
             canvasStorage[lineId].contextRef,
-            convertCoordinates[lineId]
+            convertCoordinates[lineId],
+            lineId
           );
+
           setTimerIdStore([...timerIdStore]);
         }
         break;
@@ -509,8 +368,10 @@ export const QueryGraphic = ({ graphicData }) => {
 
           timerIdStore[lineId] = animation(
             canvasStorage[lineId].contextRef,
-            convertCoordinates[lineId]
+            convertCoordinates[lineId],
+            lineId
           );
+
           setTimerIdStore([...timerIdStore]);
         }
         break;

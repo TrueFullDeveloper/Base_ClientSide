@@ -14,12 +14,12 @@ export const ExpandHeader = () => {
         </li>
         <li>
           <button type="button" onClick={() => setPeriodType("week")}>
-            Поисковые тренды за сутки
+            Поисковые тренды за неделю
           </button>
         </li>
         <li>
           <button type="button" onClick={() => setPeriodType("month")}>
-            Поисковые тренды за сутки
+            Поисковые тренды за месяц
           </button>
         </li>
       </ul>
