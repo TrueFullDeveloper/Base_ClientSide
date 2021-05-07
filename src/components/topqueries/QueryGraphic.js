@@ -11,15 +11,16 @@ const style = {
   marginLeft: "40px",
   marginBottom: "80px",
 };
+
 const styleTwo = {
   width: "720px",
   height: "480px",
   position: "absolute",
-  top: "305px",
+  top: "395px",
   left: "40px",
 };
 
-export const QueryGraphic = ({ graphicData }) => {
+export const QueryGraphic = ({ numberOfQuery }) => {
   const { periodType } = useContext(ExpandHeaderContext);
 
   const {
@@ -70,7 +71,7 @@ export const QueryGraphic = ({ graphicData }) => {
       canvItem.contextRef.current = canvItem.canvasRef.current.getContext("2d");
     });
 
-    setGraphic(graphicData, periodType, canvasStorage[5].contextRef);
+    setGraphic(numberOfQuery, periodType, canvasStorage[5].contextRef);
   }, [periodType]);
 
   const animation = (contextRef, coordinates, lineId) => {
@@ -143,7 +144,7 @@ export const QueryGraphic = ({ graphicData }) => {
               canvasStorage[lineId].contextRef.current.strokeStyle = "#2231B8";
               drawMark(
                 canvasStorage[lineId].contextRef,
-                graphicData[lineId][index],
+                numberOfQuery[lineId][index],
                 coordinate
               );
 
@@ -158,7 +159,7 @@ export const QueryGraphic = ({ graphicData }) => {
               canvasStorage[lineId].contextRef.current.strokeStyle = "#902222";
               drawMark(
                 canvasStorage[lineId].contextRef,
-                graphicData[lineId][index],
+                numberOfQuery[lineId][index],
                 coordinate
               );
 
@@ -173,7 +174,7 @@ export const QueryGraphic = ({ graphicData }) => {
               canvasStorage[lineId].contextRef.current.strokeStyle = "#53238F";
               drawMark(
                 canvasStorage[lineId].contextRef,
-                graphicData[lineId][index],
+                numberOfQuery[lineId][index],
                 coordinate
               );
 
@@ -188,7 +189,7 @@ export const QueryGraphic = ({ graphicData }) => {
               canvasStorage[lineId].contextRef.current.strokeStyle = "#D9BC25";
               drawMark(
                 canvasStorage[lineId].contextRef,
-                graphicData[lineId][index],
+                numberOfQuery[lineId][index],
                 coordinate
               );
 
@@ -203,7 +204,7 @@ export const QueryGraphic = ({ graphicData }) => {
               canvasStorage[lineId].contextRef.current.strokeStyle = "#21A1CA";
               drawMark(
                 canvasStorage[lineId].contextRef,
-                graphicData[lineId][index],
+                numberOfQuery[lineId][index],
                 coordinate
               );
 

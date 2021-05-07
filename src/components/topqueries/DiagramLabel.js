@@ -43,8 +43,10 @@ const styles = {
   },
 };
 
-export const DiagramLabel = () => {
-  const { content, coordinates, color } = useContext(LabelContext);
+export const DiagramLabel = ({ queryContent }) => {
+  const { sectorNumber, coordinates, color } = useContext(LabelContext);
+
+  // TODO: Modify Component
 
   return (
     <div style={styles.labelBlock}>

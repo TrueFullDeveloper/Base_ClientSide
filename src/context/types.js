@@ -15,3 +15,6 @@ export const HIDE_LABEL = "HIDE_LABEL";
 export const SET_TYPE_PERIOD = "SET_TYPE_PERIOD";
 //Graphic Context
 export const SET_COORDINATES = "SET_COORDINATES";
+//Diagram Context
+export const SET_ANGLES = "SET_ANGLES";
+export const EXPAND_DIAGRAM = "EXPAND_DIAGRAM";

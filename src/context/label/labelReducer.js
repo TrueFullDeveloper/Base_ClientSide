@@ -3,7 +3,7 @@ import { HIDE_LABEL, SHOW_LABEL } from "../types";
 const handlers = {
   [SHOW_LABEL]: (state, { payload }) => ({
     ...state,
-    content: payload.content,
+    sectorNumber: payload.sectorNumber,
     coordinates: payload.coordinates,
     color: payload.color,
     visible: true,

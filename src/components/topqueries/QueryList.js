@@ -1,13 +1,13 @@
-import React from 'react';
+import React from "react";
 
-export const QueryList = ({ queries }) => {
+export const QueryList = ({ queryContent }) => {
   return (
     <ul>
-      {queries.map(queriesItem => (
+      {queryContent.map((queriesItem) => (
         <li key={queriesItem.id}>
           <div>
-            <strong>{queriesItem.id}</strong>
-            <small>{queriesItem.title}</small>
+            <strong>{queriesItem.title}</strong>
+            <small>{queriesItem.text}</small>
           </div>
         </li>
       ))}

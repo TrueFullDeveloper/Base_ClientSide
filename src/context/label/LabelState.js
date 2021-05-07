@@ -7,14 +7,15 @@ import { SHOW_LABEL, HIDE_LABEL } from "../types";
 export const LabelState = ({ children }) => {
   const initialState = {
     visible: false,
-    content: null,
+    sectorNumber: null,
     coordinates: null,
     color: null,
   };
   const [state, dispatch] = useReducer(labelReducer, initialState);
 
-  const showLabel = (content, coordinates, color) => {
-    const payload = { content, coordinates, color };
+  const showLabel = (sectorNumber, coordinates, color) => {
+    const payload = { sectorNumber, coordinates, color };
+    // TODO: Add Logic
 
     dispatch({
       type: SHOW_LABEL,
@@ -29,7 +30,7 @@ export const LabelState = ({ children }) => {
       value={{
         showLabel,
         hideLabel,
-        content: state.content,
+        sectorNumber: state.sectorNumber,
         coordinates: state.coordinates,
         color: state.color,
       }}
