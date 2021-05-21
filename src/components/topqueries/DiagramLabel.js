@@ -1,5 +1,7 @@
-import React, { useContext } from "react";
-import { LabelContext } from "../../context/label/LabelContext";
+import React, { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
+import { selectPeriodType } from "../../reduxToolkit/Slice/expandHeaderSlice";
+import { selectLabel } from "../../reduxToolkit/Slice/labelSlice";
 
 const styles = {
   labelBlock: {
@@ -43,8 +45,34 @@ const styles = {
   },
 };
 
-export const DiagramLabel = () => {
-  const { content, coordinates, color } = useContext(LabelContext);
+export const DiagramLabel = ({ topQueriesData }) => {
+  const { visible, sectorNumber, coordinates } = useSelector(selectLabel);
+  //!!!
+  // TODO: Modify Component
+  //!!!
+
+  const periodType = useSelector(selectPeriodType);
+
+  const [queryContent, setQueryContent] = useState([]);
+
+  useEffect(() => {
+    switch (periodType) {
+      case "day":
+        setQueryContent(topQueriesData.day.queryContent);
+        break;
+
+      case "week":
+        setQueryContent(topQueriesData.week.queryContent);
+        break;
+
+      case "month":
+        setQueryContent(topQueriesData.month.queryContent);
+        break;
+
+      default:
+        break;
+    }
+  }, [periodType]);
 
   return (
     <div style={styles.labelBlock}>

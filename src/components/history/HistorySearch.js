@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 
 export const HistorySearch = ({ filterHistory }) => {
-  const [value, setValue] = useState();
+  const [value, setValue] = useState("");
 
   const onClick = event => {
     event.preventDefault();
@@ -11,12 +11,12 @@ export const HistorySearch = ({ filterHistory }) => {
   return (
     <div>
       <input
-        type='text'
-        placeholder='Введите название'
+        type="text"
+        placeholder="Введите название"
         value={value}
         onChange={e => setValue(e.target.value)}
       />
-      <button onClick={onClick} type='submit'>
+      <button onClick={onClick} type="submit">
         Поиск
       </button>
     </div>

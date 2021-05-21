@@ -1,15 +1,19 @@
-import React, { Fragment, useContext, useEffect } from 'react';
-import { AuthContext } from '../context/auth/AuthContext';
-import { ProfileForm } from '../components/profile/ProfileForm';
-import { Loader } from '../components/loader/Loader';
-import { PostgresContext } from '../context/postgresql/PostgresContext';
+import React, { Fragment, useEffect } from "react";
+import { ProfileForm } from "../components/profile/ProfileForm";
+import { Loader } from "../components/loader/Loader";
+import { useSelector, useDispatch } from "react-redux";
+import {
+  fetchProfile,
+  selectProfileLoading,
+} from "../reduxToolkit/SliceWithAPI/profileSlice";
 
 export const Profile = () => {
-  const { logout, userId } = useContext(AuthContext);
-  const { loading, fetchProfile, profileData, profileChange } = useContext(PostgresContext);
+  const loading = useSelector(selectProfileLoading);
+
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    fetchProfile(userId);
+    dispatch(fetchProfile("USER_TOKEN"));
     // eslint-disable-next-line
   }, []);
 
@@ -18,7 +22,7 @@ export const Profile = () => {
       {loading ? ( // Клятые скобки, которые добавляет Prittier,
         <Loader /> // потом сохраню файл без Prittier
       ) : (
-        <ProfileForm logout={logout} profileData={profileData} profileChange={profileChange} />
+        <ProfileForm />
       )}
     </Fragment>
   );

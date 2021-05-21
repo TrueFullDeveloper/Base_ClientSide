@@ -1,8 +1,18 @@
-import React, { useEffect, useRef, useState, useContext } from "react";
-import { ExpandHeaderContext } from "../../context/expandHeader/ExpandHeaderContext";
-import { GraphicContext } from "../../context/graphic/GraphicContext";
-// C R I N G E   T R O L L I N G   BEGIN
+import React, { useEffect, useRef, useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { selectPeriodType } from "../../reduxToolkit/Slice/expandHeaderSlice";
+import {
+  setGraphic,
+  refreshLine,
+  drawMark,
+  lenearFunction,
+} from "../../utils/graphicUtil";
+import {
+  selectCoordinates,
+  setCoordinates,
+} from "../../reduxToolkit/Slice/graphicSlice";
 
+// C R I N G E   T R O L L I N G   BEGIN
 const style = {
   width: "720px",
   height: "480px",
@@ -11,26 +21,20 @@ const style = {
   marginLeft: "40px",
   marginBottom: "80px",
 };
+
 const styleTwo = {
   width: "720px",
   height: "480px",
   position: "absolute",
-  top: "305px",
+  top: "395px",
   left: "40px",
 };
 
-export const QueryGraphic = ({ graphicData }) => {
-  const { periodType } = useContext(ExpandHeaderContext);
-
-  const {
-    setGraphic,
-    refreshLine,
-    drawMark,
-    lenearFunction,
-    convertCoordinates,
-  } = useContext(GraphicContext);
-
-  console.log(convertCoordinates);
+export const QueryGraphic = ({ topQueriesData }) => {
+  const periodType = useSelector(selectPeriodType);
+  const convertCoordinates = useSelector(selectCoordinates);
+  const dispatch = useDispatch();
+  const [numberOfQuery, setNumberOfQuery] = useState([]);
 
   let isHold = false;
   let holdX, holdY;
@@ -52,6 +56,7 @@ export const QueryGraphic = ({ graphicData }) => {
     true,
     true,
   ]);
+
   const [lineIsDrawn, setLineIsDrawn] = useState([
     false,
     false,
@@ -63,15 +68,38 @@ export const QueryGraphic = ({ graphicData }) => {
   const [timerIdStore, setTimerIdStore] = useState(Array(5));
 
   useEffect(() => {
-    canvasStorage.map((canvItem) => {
+    canvasStorage.map(canvItem => {
       canvItem.canvasRef.current.width = 720;
       canvItem.canvasRef.current.height = 480;
 
       canvItem.contextRef.current = canvItem.canvasRef.current.getContext("2d");
     });
 
-    setGraphic(graphicData, periodType, canvasStorage[5].contextRef);
+    switch (periodType) {
+      case "day":
+        setNumberOfQuery(topQueriesData.day.numberOfQuery);
+        break;
+
+      case "week":
+        setNumberOfQuery(topQueriesData.week.numberOfQuery);
+        break;
+
+      case "month":
+        setNumberOfQuery(topQueriesData.month.numberOfQuery);
+        break;
+
+      default:
+        break;
+    }
   }, [periodType]);
+
+  useEffect(() => {
+    dispatch(
+      setCoordinates(
+        setGraphic(numberOfQuery, periodType, canvasStorage[5].contextRef)
+      )
+    );
+  }, [numberOfQuery]);
 
   const animation = (contextRef, coordinates, lineId) => {
     lineIsDrawing[lineId] = true;
@@ -143,7 +171,7 @@ export const QueryGraphic = ({ graphicData }) => {
               canvasStorage[lineId].contextRef.current.strokeStyle = "#2231B8";
               drawMark(
                 canvasStorage[lineId].contextRef,
-                graphicData[lineId][index],
+                numberOfQuery[lineId][index],
                 coordinate
               );
 
@@ -158,7 +186,7 @@ export const QueryGraphic = ({ graphicData }) => {
               canvasStorage[lineId].contextRef.current.strokeStyle = "#902222";
               drawMark(
                 canvasStorage[lineId].contextRef,
-                graphicData[lineId][index],
+                numberOfQuery[lineId][index],
                 coordinate
               );
 
@@ -173,7 +201,7 @@ export const QueryGraphic = ({ graphicData }) => {
               canvasStorage[lineId].contextRef.current.strokeStyle = "#53238F";
               drawMark(
                 canvasStorage[lineId].contextRef,
-                graphicData[lineId][index],
+                numberOfQuery[lineId][index],
                 coordinate
               );
 
@@ -188,7 +216,7 @@ export const QueryGraphic = ({ graphicData }) => {
               canvasStorage[lineId].contextRef.current.strokeStyle = "#D9BC25";
               drawMark(
                 canvasStorage[lineId].contextRef,
-                graphicData[lineId][index],
+                numberOfQuery[lineId][index],
                 coordinate
               );
 
@@ -203,7 +231,7 @@ export const QueryGraphic = ({ graphicData }) => {
               canvasStorage[lineId].contextRef.current.strokeStyle = "#21A1CA";
               drawMark(
                 canvasStorage[lineId].contextRef,
-                graphicData[lineId][index],
+                numberOfQuery[lineId][index],
                 coordinate
               );
 
@@ -284,7 +312,7 @@ export const QueryGraphic = ({ graphicData }) => {
     }
   };
 
-  const onClick = (lineId) => {
+  const onClick = lineId => {
     switch (lineId) {
       case 0:
         if (lineIsDrawn[lineId]) {

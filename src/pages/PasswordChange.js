@@ -1,15 +1,11 @@
-import React, { useState, useContext } from 'react';
-import { AuthContext } from '../context/auth/AuthContext';
-import { PostgresContext } from '../context/postgresql/PostgresContext';
-import { Link } from 'react-router-dom';
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
 
 export const PasswordChange = () => {
-  const { password } = useContext(AuthContext);
-  const { passwordChange } = useContext(PostgresContext);
   const [form, setForm] = useState({
-    oldPassword: '',
-    newPassword: '',
-    passwordRep: '',
+    oldPassword: "",
+    newPassword: "",
+    passwordRep: "",
   });
 
   const [step, setStep] = useState(1);
@@ -19,10 +15,13 @@ export const PasswordChange = () => {
   };
 
   const onClick = () => {
-    if (form.oldPassword === password && form.newPassword === form.passwordRep) {
-      passwordChange(form.newPassword);
-      setStep(2);
-    }
+    // if (
+    //   form.oldPassword === password &&
+    //   form.newPassword === form.passwordRep
+    // ) {
+    passwordChange(form.newPassword);
+    setStep(2);
+    //}
   };
 
   if (step === 1) {
@@ -30,30 +29,30 @@ export const PasswordChange = () => {
       <form>
         <h1>Смена пароля</h1>
         <input
-          placeholder='Старый Пароль'
-          type='password'
-          id='oldPassword'
-          name='oldPassword'
+          placeholder="Старый Пароль"
+          type="password"
+          id="oldPassword"
+          name="oldPassword"
           value={form.oldPassword}
           onChange={onChange}
         />
         <input
-          placeholder='Новый Пароль'
-          type='password'
-          id='newPassword'
-          name='newPassword'
+          placeholder="Новый Пароль"
+          type="password"
+          id="newPassword"
+          name="newPassword"
           value={form.newPassword}
           onChange={onChange}
         />
         <input
-          placeholder='Повторите Пароль'
-          type='password'
-          id='passwordRep'
-          name='passwordRep'
+          placeholder="Повторите Пароль"
+          type="password"
+          id="passwordRep"
+          name="passwordRep"
           value={form.passwordRep}
           onChange={onChange}
         />
-        <button type='button' onClick={onClick}>
+        <button type="button" onClick={onClick}>
           Сменить
         </button>
       </form>
@@ -63,8 +62,8 @@ export const PasswordChange = () => {
     return (
       <div>
         <h1>Вы успешно изменили свой пароль!</h1>
-        <button type='button'>
-          <Link to='/'>Ок</Link>
+        <button type="button">
+          <Link to="/">Ок</Link>
         </button>
       </div>
     );
