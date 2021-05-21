@@ -1,5 +1,12 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  changePassword,
+  selectResetLoading,
+} from "../reduxToolkit/SliceWithAPI/passwordResetSlice";
+import { selectPassword } from "../reduxToolkit/SliceWithAPI/authSlice";
+import { Loader } from "../components/loader/Loader";
 
 export const PasswordChange = () => {
   const [form, setForm] = useState({
@@ -7,7 +14,9 @@ export const PasswordChange = () => {
     newPassword: "",
     passwordRep: "",
   });
-
+  const dispatch = useDispatch();
+  const password = useSelector(selectPassword);
+  const loading = useSelector(selectResetLoading);
   const [step, setStep] = useState(1);
 
   const onChange = event => {
@@ -15,14 +24,18 @@ export const PasswordChange = () => {
   };
 
   const onClick = () => {
-    // if (
-    //   form.oldPassword === password &&
-    //   form.newPassword === form.passwordRep
-    // ) {
-    passwordChange(form.newPassword);
-    setStep(2);
-    //}
+    if (
+      form.oldPassword === password &&
+      form.newPassword === form.passwordRep
+    ) {
+      dispatch(changePassword(form.newPassword));
+      setStep(2);
+    }
   };
+
+  if (loading) {
+    return <Loader />;
+  }
 
   if (step === 1) {
     return (

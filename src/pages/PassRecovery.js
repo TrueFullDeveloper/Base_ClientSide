@@ -6,11 +6,14 @@ import {
   changePassword,
   sendEmail,
   selectResetCod,
+  selectResetLoading,
 } from "../reduxToolkit/SliceWithAPI/passwordResetSlice";
 
 export const PassRecovery = () => {
   const dispatch = useDispatch();
-  const { loading, cod } = useSelector(selectResetCod);
+
+  const cod = useSelector(selectResetCod);
+  const loading = useSelector(selectResetLoading);
 
   const onClick = () => {
     if (step === 1) {

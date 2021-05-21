@@ -12,12 +12,16 @@ export const fetchLogin = createAsyncThunk(
         JSON.stringify(userData)
       );
 
-      const payload = { token: "ddddddddddddsdssd" };
+      const payload = {
+        token: "ddddddddddddsdssd",
+        password: userData.password,
+      };
 
       localStorage.setItem(
         storageName,
         JSON.stringify({
           token: payload.token, // TODO: Here Should Be res.jwtToken
+          password: userData.password,
         })
       );
 
@@ -37,12 +41,16 @@ export const fetchSignup = createAsyncThunk(
         JSON.stringify(userData)
       );
 
-      const payload = { token: "ddddddddddddsdssd" };
+      const payload = {
+        token: "ddddddddddddsdssd",
+        password: userData.password,
+      };
 
       localStorage.setItem(
         storageName,
         JSON.stringify({
-          token: payload.token,
+          token: payload.token, // TODO: Here Should Be res.jwtToken
+          password: userData.password,
         })
       );
 
@@ -57,6 +65,7 @@ const authSlice = createSlice({
   name: "auth",
   initialState: {
     token: null,
+    password: null,
     isAuthenticated: false,
     loading: false,
   },
@@ -64,12 +73,14 @@ const authSlice = createSlice({
   reducers: {
     logout(state) {
       state.token = null;
+      state.password = null;
       state.isAuthenticated = false;
       state.loading = false;
     },
 
     login(state, { payload }) {
-      state.token = payload;
+      state.token = payload.token;
+      state.password = payload.password;
       state.isAuthenticated = true;
       state.loading = false;
     },
@@ -81,7 +92,8 @@ const authSlice = createSlice({
     },
 
     [fetchLogin.fulfilled]: (state, { payload }) => {
-      state.token = payload;
+      state.token = payload.token;
+      state.password = payload.password;
       state.isAuthenticated = true;
       state.loading = false;
     },
@@ -91,7 +103,8 @@ const authSlice = createSlice({
     },
 
     [fetchSignup.fulfilled]: (state, { payload }) => {
-      state.token = payload;
+      state.token = payload.token;
+      state.password = payload.password;
       state.isAuthenticated = true;
       state.loading = false;
     },
@@ -101,6 +114,8 @@ const authSlice = createSlice({
 export const { logout, login } = authSlice.actions;
 
 export const selectToken = state => state.auth.token;
+
+export const selectPassword = state => state.auth.password;
 
 export const selectAuthenticated = state => state.auth.isAuthenticated;
 
