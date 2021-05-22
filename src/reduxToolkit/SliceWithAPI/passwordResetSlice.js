@@ -21,11 +21,11 @@ export const sendEmail = createAsyncThunk(
 
 export const changePassword = createAsyncThunk(
   "passwordReset/changePassword",
-  async newPassword => {
+  async ({ newPassword, newPasswodRep }) => {
     try {
       await axios.post(
         "https://jsonplaceholder.typicode.com/posts",
-        JSON.stringify(newPassword)
+        JSON.stringify(newPassword, newPasswodRep)
       );
     } catch (err) {
       console.log(err.message);

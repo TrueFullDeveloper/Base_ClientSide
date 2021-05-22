@@ -28,7 +28,12 @@ export const PasswordChange = () => {
       form.oldPassword === password &&
       form.newPassword === form.passwordRep
     ) {
-      dispatch(changePassword(form.newPassword));
+      dispatch(
+        changePassword({
+          newPasswod: form.newPassword,
+          newPasswodRep: form.passwordRep,
+        })
+      );
       setStep(2);
     }
   };

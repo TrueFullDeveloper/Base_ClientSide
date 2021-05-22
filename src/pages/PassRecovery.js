@@ -23,7 +23,12 @@ export const PassRecovery = () => {
 
     if (step === 2) {
       if (form.cod === cod && form.password === form.passwordRep) {
-        dispatch(changePassword(form.password));
+        dispatch(
+          changePassword({
+            newPasswod: form.password,
+            newPasswodRep: form.passwordRep,
+          })
+        );
         setStep(3);
       }
     }
