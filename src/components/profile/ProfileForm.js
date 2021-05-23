@@ -6,6 +6,11 @@ import {
   selectProfile,
 } from "../../reduxToolkit/SliceWithAPI/profileSlice";
 import { userLogout } from "../../reduxToolkit/SliceWithAPI/authSlice";
+import styles from "./ProfileForm.module.css";
+import avatar from "../../static/images/profile/avatar.svg";
+import logout from "../../static/images/profile/logout.svg";
+import ecllipse from "../../static/images/profile/ellipse.png";
+import blackHole from "../../static/images/profile/black_hole.png";
 
 export const ProfileForm = () => {
   const profileData = useSelector(selectProfile);
@@ -36,9 +41,26 @@ export const ProfileForm = () => {
 
   return (
     <Fragment>
-      <div>
-        <form onSubmit={event => event.preventDefault()}>
-          <div>
+      <div className={styles.background_ellipse}>
+        <img src={ecllipse} alt="nothing" />
+      </div>
+
+      <div className={styles.background_black_hole}>
+        <img src={blackHole} alt="nothing" />
+      </div>
+
+      <div className={styles.profile}>
+        <div className={styles.avatar}>
+          <h1>Ваш Профиль</h1>
+          <img src={avatar} />
+          <h2>Cezar</h2>
+        </div>
+
+        <form
+          className={styles.profile_form}
+          onSubmit={event => event.preventDefault()}
+        >
+          <div className={styles.profile_item}>
             <span>Имя</span>
             <input
               type="text"
@@ -48,7 +70,7 @@ export const ProfileForm = () => {
               onChange={onChange}
             />
           </div>
-          <div>
+          <div className={styles.profile_item}>
             <span>Почта</span>
             <input
               type="email"
@@ -58,7 +80,7 @@ export const ProfileForm = () => {
               onChange={onChange}
             />
           </div>
-          <div>
+          <div className={styles.profile_item}>
             <span>Телеграмм</span>
             <input
               type="text"
@@ -69,10 +91,15 @@ export const ProfileForm = () => {
             />
           </div>
           <div>
-            <button type="button">
+            <button type="submit">
               <Link to="/passworchange">Сменить пароль</Link>
             </button>
-            <button onClick={() => dispatch(userLogout())}>Выйти</button>
+            <button
+              className={styles.logout_button}
+              onClick={() => dispatch(userLogout())}
+            >
+              <img src={logout} />
+            </button>
           </div>
         </form>
       </div>

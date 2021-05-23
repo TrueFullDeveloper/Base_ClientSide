@@ -1,0 +1,133 @@
+.background_ellipse {
+  position: absolute;
+  right: 0px;
+  top: 0px;
+  z-index: 1;
+}
+
+.background_black_hole {
+  position: absolute;
+  left: 0px;
+  bottom: 0px;
+}
+
+.profile {
+  position: absolute;
+  width: 878px;
+  height: 508px;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  justify-content: space-between;
+}
+
+.profile_form {
+  padding-top: 76px;
+  width: 505px;
+}
+
+.profile_form span {
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 24px;
+  line-height: 28px;
+  letter-spacing: 0.05em;
+  color: #9b9797;
+}
+
+.profile_form input {
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 24px;
+  line-height: 28px;
+  letter-spacing: 0.05em;
+  background: url(../../static/images/profile/pencil.svg) no-repeat right;
+  border-image-source: linear-gradient(270deg, #63a3d1 0%, #053c5a 104.01%);
+  border-image-slice: 1;
+  border-bottom-width: 4px;
+  border-left-width: 0px;
+  border-right-width: 0px;
+  border-top-width: 0px;
+  color: #9b9797;
+  outline: none;
+  margin: 15px auto;
+  display: block;
+  height: 44px;
+  width: 505px;
+}
+
+.profile_item {
+  margin-bottom: 40px;
+}
+
+.profile_form button[type="submit"] {
+  margin-top: 15px;
+  left: 0px;
+  bottom: 0px;
+  outline: none;
+  border: 0;
+  width: 303px;
+  height: 49px;
+  text-align: center;
+  background: linear-gradient(90deg, #2a055a 0%, #06486c 100%);
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 35px;
+  transition: 0.35s;
+}
+
+.profile_form button[type="submit"] a {
+  text-decoration: none;
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 23px;
+  text-transform: uppercase;
+  color: #f0f0f0;
+  cursor: pointer;
+}
+
+.profile_form button[type="submit"]:hover {
+  background: linear-gradient(90deg, #3c0e79 0%, #0d5880 100%);
+  transform: scale(1.05);
+}
+
+.avatar h1 {
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 36px;
+  line-height: 42px;
+  color: #fffbfb;
+  text-shadow: 0px 12px 4px rgba(0, 0, 0, 0.35);
+}
+
+.avatar h2 {
+  margin: -18px 60px;
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 36px;
+  line-height: 42px;
+  letter-spacing: 0.05em;
+  color: #e8e8e8;
+  text-shadow: 0px 12px 4px rgba(0, 0, 0, 0.35);
+}
+
+.logout_button {
+  position: absolute;
+  background-color: transparent;
+  right: 0px;
+  margin-top: 15px;
+  transition: 0.35s;
+  width: 50px;
+  height: 50px;
+  border: none;
+}
+
+.logout_button img:hover {
+  filter: brightness(1.5);
+}
