@@ -1,0 +1,60 @@
+.history_search {
+  margin-top: 120px;
+  margin-left: auto;
+  margin-right: auto;
+  width: 945px;
+}
+
+.history_search h1 {
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 36px;
+  line-height: 42px;
+  color: #fffbfb;
+}
+
+.history_search h1 img {
+  margin-right: 14px;
+}
+
+.history_search input {
+  width: 559px;
+  height: 59px;
+  outline: none;
+  border: 0;
+  background: #282828;
+  border-radius: 10px 0 0 10px;
+  padding-left: 27px;
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 16px;
+  letter-spacing: 0.05em;
+  color: #9b9797;
+}
+
+.history_search input:focus {
+  color: white;
+}
+
+.history_search button {
+  margin-left: -6px;
+  width: 111px;
+  height: 59px;
+  outline: none;
+  border: 0;
+  background: linear-gradient(270deg, #73d163 0%, #115a05 104.01%);
+  border-radius: 0 10px 10px 0;
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 16px;
+  cursor: pointer;
+  transition: 0.35s;
+  color: #ffffff;
+}
+
+.history_search button:hover {
+  background: linear-gradient(270deg, #85e475 0%, #177e08 104.01%);
+}
