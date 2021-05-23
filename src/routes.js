@@ -5,8 +5,8 @@ import { Signup } from "./pages/signup/Signup";
 import { History } from "./pages/History";
 import { Search } from "./pages/Search";
 import { Profile } from "./pages/Profile";
-import { PassRecovery } from "./pages/PassRecovery";
-import { PasswordChange } from "./pages/PasswordChange";
+import { PassRecovery } from "./pages/passwordRecovery/PassRecovery";
+import { PasswordChange } from "./pages/passwordChange/PasswordChange";
 import { TopQueries } from "./pages/TopQueries";
 
 export const useRoutes = isAuthenticated => {

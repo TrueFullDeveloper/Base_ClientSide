@@ -16,7 +16,7 @@ body {
   top: 0px;
 }
 
-.background_ellipse_2 img {
+.background_ellipse_2 {
   position: absolute;
   left: 0px;
   bottom: 0px;
@@ -87,8 +87,7 @@ body {
   opacity: 0;
 }
 
-.login_form input[type="email"]:focus,
-.login_form input[type="password"]:focus {
+.login_form input:focus {
   width: 450px;
   color: white;
   font-size: 22px;
