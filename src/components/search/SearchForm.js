@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import { fetchResponse } from "../../reduxToolkit/SliceWithAPI/searchSlice";
+import styles from "./SearchForm.module.css";
 
 export const SearchForm = () => {
   const dispatch = useDispatch();
@@ -14,9 +15,13 @@ export const SearchForm = () => {
 
   return (
     <form>
-      <div>
+      <div className={styles.search_form}>
+        <p>
+          Мы готовы предоставим необходимую для вас
+          <br /> информацию, в рамках заданной вами темы.
+        </p>
         <input
-          type="text"
+          type="search"
           placeholder="Поиск по теме"
           value={value}
           onChange={e => setValue(e.target.value)}
