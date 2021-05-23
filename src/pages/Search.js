@@ -10,6 +10,8 @@ import {
   selectResponseList,
   selectSearchLoading,
 } from "../reduxToolkit/SliceWithAPI/searchSlice";
+import { Header } from "../components/header/Header";
+import { Footer } from "../components/footer/Footer";
 
 export const Search = () => {
   const responseList = useSelector(selectResponseList);
@@ -17,7 +19,7 @@ export const Search = () => {
 
   return (
     <Fragment>
-      <div>Search</div>
+      <Header />
       <SearchForm />
       {loading ? ( // Клятые скобки, которые добавляет Prittier,
         <Loader /> // потом сохраню файл без Prittier
@@ -27,6 +29,7 @@ export const Search = () => {
           <TelegramList telegramItems={responseList} />
           <YoutubeList youtubeItems={responseList} />
           <BookList bookItems={responseList} />
+          <Footer />
         </Fragment>
       )}
     </Fragment>

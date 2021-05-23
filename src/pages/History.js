@@ -9,6 +9,8 @@ import {
   selectHistoryLoading,
   selectHistory,
 } from "../reduxToolkit/SliceWithAPI/historySlice";
+import { Header } from "../components/header/Header";
+import { Footer } from "../components/footer/Footer";
 
 export const History = () => {
   const [historyState, setHistory] = useState(false); // Издалека похоже на костыль(
@@ -54,7 +56,11 @@ export const History = () => {
       {loading ? ( // Клятые скобки, которые добавляет Prittier,
         <Loader /> // потом сохраню файл без Prittier
       ) : (
-        <HistoryList history={historyState || history} onRemove={onRemove} />
+        <Fragment>
+          <Header />
+          <HistoryList history={historyState || history} onRemove={onRemove} />
+          <Footer />
+        </Fragment>
       )}
     </Fragment>
   );

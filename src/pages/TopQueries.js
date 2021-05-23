@@ -11,6 +11,8 @@ import {
   selectQueriesLoading,
   fetchQueries,
 } from "../reduxToolkit/SliceWithAPI/topQueriesSlice";
+import { Header } from "../components/header/Header";
+import { Footer } from "../components/footer/Footer";
 
 export const TopQueries = () => {
   const dispatch = useDispatch();
@@ -25,8 +27,8 @@ export const TopQueries = () => {
 
   return (
     <Fragment>
+      <Header />
       <ExpandHeader />
-      <div>Top Queries</div>
 
       {loading ? ( // Клятые скобки, которые добавляет Prittier,
         <Loader /> // потом сохраню файл без Prittier
@@ -36,6 +38,7 @@ export const TopQueries = () => {
           <QueryGraphic topQueriesData={topQueriesData} />
           <QueryDiagram topQueriesData={topQueriesData} />
           <DiagramLabel topQueriesData={topQueriesData} />
+          <Footer />
         </Fragment>
       )}
     </Fragment>

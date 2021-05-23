@@ -1,7 +1,6 @@
 import React, { Fragment, useEffect } from "react";
 import { BrowserRouter } from "react-router-dom";
 import { useRoutes } from "./routes";
-import { Header } from "./components/header/Header";
 import { useSelector, useDispatch } from "react-redux";
 import {
   selectAuthenticated,
@@ -25,10 +24,7 @@ function App() {
       {loading ? ( // Клятые скобки, которые добавляет Prittier,
         <Loader /> // потом сохраню файл без Prittier
       ) : (
-        <BrowserRouter>
-          {isAuthenticated && <Header />}
-          {routes}
-        </BrowserRouter>
+        <BrowserRouter>{routes}</BrowserRouter>
       )}
     </Fragment>
   );

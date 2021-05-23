@@ -6,6 +6,7 @@ import {
   fetchProfile,
   selectProfileLoading,
 } from "../reduxToolkit/SliceWithAPI/profileSlice";
+import { Header } from "../components/header/Header";
 
 export const Profile = () => {
   const loading = useSelector(selectProfileLoading);
@@ -22,7 +23,10 @@ export const Profile = () => {
       {loading ? ( // Клятые скобки, которые добавляет Prittier,
         <Loader /> // потом сохраню файл без Prittier
       ) : (
-        <ProfileForm />
+        <Fragment>
+          <Header />
+          <ProfileForm />
+        </Fragment>
       )}
     </Fragment>
   );
