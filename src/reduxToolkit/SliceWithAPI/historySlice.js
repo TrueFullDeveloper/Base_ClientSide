@@ -9,9 +9,35 @@ export const getHistory = createAsyncThunk(
         "https://jsonplaceholder.typicode.com/todos/?_start=0&_limit=5"
       );
 
-      const payload = Object.keys(res.data).map(key => {
-        return { ...res.data[key] };
-      });
+      const payload = [
+        {
+          timeSpan: "Сегодня - Четверг, 1 октября",
+          historyDay: [
+            { time: "10:37", queryHistory: "Python", id: 1 },
+            { time: "10:37", queryHistory: "Dfdfsd", id: 2 },
+            { time: "10:37", queryHistory: "dfdf", id: 3 },
+            { time: "10:37", queryHistory: "Vvfdvf", id: 4 },
+          ],
+        },
+        {
+          timeSpan: "Вчера - Среда, 30 ноября",
+          historyDay: [
+            { time: "10:37", queryHistory: "Bgvsdg", id: 5 },
+            { time: "10:37", queryHistory: "Python", id: 6 },
+            { time: "10:37", queryHistory: "Python", id: 7 },
+            { time: "10:37", queryHistory: "Python", id: 8 },
+          ],
+        },
+        {
+          timeSpan: "Сегодня - Четверг, 1 октября",
+          historyDay: [
+            { time: "10:37", queryHistory: "Python", id: 9 },
+            { time: "10:37", queryHistory: "Python", id: 10 },
+            { time: "10:37", queryHistory: "Python", id: 11 },
+            { time: "10:37", queryHistory: "Python", id: 12 },
+          ],
+        },
+      ];
 
       return payload;
     } catch (err) {
@@ -39,9 +65,10 @@ const historySlice = createSlice({
   name: "history",
   initialState: {
     historyList: [
-      { id: 1, title: "rowadz" },
-      { id: 2, title: "rowadz02" },
-      { id: 3, title: "rowadz03" },
+      {
+        timeSpan: "Сегодня - Четверг, 1 октября",
+        historyDay: [{ time: "10:37", queryHistory: "Python", id: 1 }],
+      },
     ],
     loading: false,
   },
@@ -61,9 +88,12 @@ const historySlice = createSlice({
     },
 
     [deleteHistoryItem.fulfilled]: (state, { payload: historyItemId }) => {
-      state.historyList = state.historyList.filter(
-        historyItem => historyItem.id !== historyItemId
-      );
+      state.historyList = state.historyList.map(historyItem => ({
+        ...historyItem,
+        historyDay: historyItem.historyDay.filter(
+          historyDayItem => historyDayItem.id !== historyItemId
+        ),
+      }));
       state.loading = false;
     },
   },
