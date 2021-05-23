@@ -11,7 +11,7 @@ export const HistorySearch = ({ filterHistory }) => {
   };
 
   return (
-    <div class={styles.history_search}>
+    <div className={styles.history_search}>
       <h1>
         <img src={historyIcon} alt="nothing" />
         История

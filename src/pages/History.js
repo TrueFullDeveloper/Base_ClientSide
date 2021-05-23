@@ -25,12 +25,25 @@ export const History = () => {
 
   const filterHistory = value => {
     setHistory(
-      history.filter(historyItem => historyItem.title.startsWith(value))
+      history.map(historyItem => ({
+        ...historyItem,
+        historyDay: historyItem.historyDay.filter(historyDayItem =>
+          historyDayItem.queryHistory.startsWith(value)
+        ),
+      }))
     );
   };
 
   const onRemove = historyItemId => {
-    setHistory(history.filter(historyItem => historyItem.id !== historyItemId));
+    setHistory(
+      history.map(historyItem => ({
+        ...historyItem,
+        historyDay: historyItem.historyDay.filter(
+          historyDayItem => historyDayItem.id !== historyItemId
+        ),
+      }))
+    );
+
     dispatch(deleteHistoryItem({ historyItemId }));
   };
 
