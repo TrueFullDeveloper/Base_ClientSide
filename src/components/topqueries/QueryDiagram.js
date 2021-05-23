@@ -1,7 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import { LabelContext } from "../../context/label/LabelContext";
 import { useSelector, useDispatch } from "react-redux";
-
 import {
   getSectorByCoordinates,
   diagramExpand,
@@ -10,15 +8,13 @@ import {
 import { selectPeriodType } from "../../reduxToolkit/Slice/expandHeaderSlice";
 import {
   selectDiagramAngles,
-  selectDiagramExpandStatus,
   setAngles,
-  expandDiagram,
 } from "../../reduxToolkit/Slice/diagramSlice";
 import { hideLabel, showLabel } from "../../reduxToolkit/Slice/labelSlice";
 
-const DIAGRAM_COLORS = ["#2231B8", "#902222", "#53238F", "#D9BC25", "#21A1CA"];
-const DIAGRAM_RADIUS = 172;
-const CIRCLE_CENTER = 300;
+// const DIAGRAM_COLORS = ["#2231B8", "#902222", "#53238F", "#D9BC25", "#21A1CA"];
+// const DIAGRAM_RADIUS = 172;
+// const CIRCLE_CENTER = 300;
 
 export const QueryDiagram = ({ topQueriesData }) => {
   const canvasRef = useRef(null);
@@ -31,7 +27,6 @@ export const QueryDiagram = ({ topQueriesData }) => {
   const [isExpand, setExpandStatus] = useState(false);
 
   const diagramAngles = useSelector(selectDiagramAngles);
-  //const isExpand = useSelector(selectDiagramExpandStatus);
 
   useEffect(() => {
     canvasRef.current.width = 600;
