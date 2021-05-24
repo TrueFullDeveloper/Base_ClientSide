@@ -1,0 +1,105 @@
+.response_section {
+  margin-top: 20px;
+  margin-left: auto;
+  margin-right: auto;
+  display: flex;
+  flex-wrap: wrap;
+  width: 1170px;
+}
+
+.response_section h1 {
+  width: 100%;
+  margin-left: 40px;
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 36px;
+  margin-bottom: 10px;
+  color: #fffbfb;
+}
+
+.vk_block {
+  width: 555px;
+  height: 158px;
+  background-image: url(../../../static/images/search/vk_back.svg);
+  display: flex;
+  flex-wrap: nowrap;
+  margin-left: 30px;
+  margin-top: 30px;
+}
+
+.vk_block ul {
+  list-style: none;
+  text-decoration: none;
+  margin-top: 18px;
+}
+
+.vk_block img {
+  width: 100px;
+  height: 100px;
+  margin-top: 30px;
+  margin-left: 20px;
+}
+
+.vk_block h2 {
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 32px;
+  line-height: 2px;
+  color: #e4e4e4;
+}
+
+.vk_block p {
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 20px;
+  line-height: 13px;
+  color: #e4e4e4;
+}
+
+.vk_block p1 {
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 16px;
+  color: #ababab;
+}
+
+.vk_block button {
+  background: #0f1128;
+  border-radius: 10px;
+  border: 0;
+  outline: none;
+  height: 40px;
+  width: 130px;
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 16px;
+  filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: #ffffff;
+  cursor: pointer;
+  transition: 0.25s;
+  margin-top: 63px;
+  margin-left: 70px;
+}
+
+.vk_block button:hover {
+  background: #141633;
+}
+
+.vk_block button a {
+  text-decoration: none;
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 16px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: #ffffff;
+  cursor: pointer;
+}

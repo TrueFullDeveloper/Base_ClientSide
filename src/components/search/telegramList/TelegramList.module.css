@@ -1,0 +1,107 @@
+.response_section {
+  margin-top: 20px;
+  margin-left: auto;
+  margin-right: auto;
+  display: flex;
+  flex-wrap: wrap;
+  width: 1170px;
+}
+
+.response_section h1 {
+  width: 100%;
+  margin-left: 40px;
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 36px;
+  margin-bottom: 10px;
+  color: #fffbfb;
+}
+
+.telegram_block {
+  width: 555px;
+  height: 158px;
+  background-image: url(../../../static/images/search/telegramm_back.svg);
+  display: flex;
+  flex-wrap: nowrap;
+  margin-left: 30px;
+  margin-top: 30px;
+}
+
+.telegram_block ul {
+  list-style: none;
+  text-decoration: none;
+  margin-top: 18px;
+  width: 220px;
+}
+
+.telegram_block img {
+  width: 100px;
+  height: 100px;
+  margin-top: 30px;
+  margin-left: 20px;
+}
+
+.telegram_block h2 {
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: 550;
+  font-size: 28px;
+  line-height: 2px;
+  letter-spacing: 0.02em;
+  color: #fffdfd;
+}
+
+.telegram_block p {
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: 800;
+  font-size: 16px;
+  line-height: 19px;
+  color: #1c1c1c;
+}
+
+.telegram_block p1 {
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 14px;
+  color: #3f3f3f;
+}
+
+.telegram_block button {
+  transition: 0.25s;
+  background: #151d77;
+  border-radius: 10px;
+  border: 0;
+  outline: none;
+  height: 40px;
+  width: 130px;
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 16px;
+  filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: #ffffff;
+  cursor: pointer;
+  margin-top: 62px;
+  margin-left: 25px;
+}
+
+.telegram_block button:hover {
+  background: #182180;
+}
+
+.telegram_block button a {
+  text-decoration: none;
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 16px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: #ffffff;
+  cursor: pointer;
+}

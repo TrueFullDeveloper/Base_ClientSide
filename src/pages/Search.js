@@ -1,9 +1,9 @@
 import React, { Fragment } from "react";
-import { SearchForm } from "../components/search/SearchForm";
-import { VkList } from "../components/search/VkList";
-import { TelegramList } from "../components/search/TelegramList";
-import { YoutubeList } from "../components/search/YoutubeList";
-import { BookList } from "../components/search/BookList";
+import { SearchForm } from "../components/search/searchForm/SearchForm";
+import { VkList } from "../components/search/vkList/VkList";
+import { TelegramList } from "../components/search/telegramList/TelegramList";
+import { YoutubeList } from "../components/search/youtubeList/YoutubeList";
+import { BookList } from "../components/search/bookList/BookList";
 import { Loader } from "../components/loader/Loader";
 import { useSelector } from "react-redux";
 import {

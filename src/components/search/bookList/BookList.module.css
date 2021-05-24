@@ -1,0 +1,152 @@
+.response_section {
+  margin-top: 20px;
+  margin-left: auto;
+  margin-right: auto;
+  width: 1170px;
+}
+
+.response_section h1 {
+  width: 100%;
+  margin-left: 40px;
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 36px;
+  margin-bottom: 10px;
+  color: #fffbfb;
+}
+
+.book_block {
+  position: relative;
+  width: 1140px;
+  height: 492px;
+  background: #1a3146;
+  display: block;
+  flex-wrap: nowrap;
+  margin-left: 30px;
+  margin-top: 30px;
+  margin-bottom: 30px;
+}
+
+.book_block h1 {
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: bold;
+  margin-left: -5px;
+  font-size: 28px;
+  color: #fdfdfd;
+}
+
+.first_book_section img {
+  position: absolute;
+  top: 45px;
+  left: 58px;
+  width: 208px;
+  height: 342px;
+}
+
+.first_book_section button {
+  position: absolute;
+  top: 407px;
+  left: 58px;
+  background: #0f1128;
+  border-radius: 10px;
+  width: 208px;
+  height: 45px;
+  border: none;
+}
+
+.first_book_section button:hover {
+  background: #151736;
+}
+
+.first_book_section button a {
+  text-decoration: none;
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 16px;
+  line-height: 19px;
+  color: #f3f3f3;
+  text-transform: uppercase;
+}
+
+.second_book_section {
+  height: 100%;
+  margin-left: 400px;
+  padding-top: 20px;
+}
+
+.second_book_section h2 {
+  margin-top: -2px;
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 18px;
+  letter-spacing: 0.1em;
+  color: #52616e;
+}
+
+.second_book_section h3 {
+  margin-top: -10px;
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 18px;
+  color: #ffffff;
+}
+
+.second_book_section ul {
+  list-style: none;
+  text-decoration: none;
+  margin: auto;
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 14px;
+  line-height: 24px;
+  letter-spacing: 0.05em;
+  margin-left: -37px;
+}
+
+.book_data {
+  width: 644px;
+  height: 200px;
+}
+
+.grey_color {
+  color: #52616f;
+}
+
+.white_color {
+  color: #e4e4e4;
+}
+
+.book_data .white_color {
+  margin-left: 120px;
+  margin-top: -120px;
+}
+
+.annotation {
+  margin-top: -42px;
+  width: 644px;
+}
+
+.annotation h2 {
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 16px;
+  line-height: 22px;
+  color: #52616f;
+}
+
+.annotation p {
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 14px;
+  line-height: 20px;
+  margin-top: -10px;
+  color: #e4e4e4;
+}
